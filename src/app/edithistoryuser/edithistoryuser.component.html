@@ -1,1 +1,101 @@
-<p>edithistoryuser works!</p>
+<br>
+<h2 class="text-center">แก้ไขข้อมูลทะเบียน</h2>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 col-md-offset-3">
+        <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >เลขบัตรประชาชน</label>
+                            <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="userEd.CITIZEN_ID" name="txtID" id="idcard" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [ngClass]="{ 'is-invalid': submitted && f.idcard.errors }"/>
+                            <div *ngIf="submitted && f.idcard.errors" class="invalid-feedback">
+                                <div *ngIf="f.idcard.errors.required">กรุณากรอกเลขบัตรประชาชน</div>
+                                <div *ngIf="f.idcard.errors.minlength">กรุณากรอกให้ครบ 13 ตัว</div>
+                                <div *ngIf="f.idcard.errors.maxlength">เลขบัตรประชาชนเกิน 13 ตัว</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >คำนำหน้าชื่อ</label>
+                            <select   id="title" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [(ngModel)]="userEd.TITLE">
+                                <option value="" selected disabled>เลือก</option>
+                                <option value="1">นาย</option>
+                                <option value="2">นาง</option>
+                                <option value="3">นางสาว</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >เพศ</label>
+                            <select   id="sex" class="form-control input-sm" autocomplete="off" required [(ngModel)]="userEd.SEX">
+                                <option value="" selected disabled>เลือก</option>
+                                <option value="M">ชาย</option>
+                                <option value="F">หญิง</option>
+                              </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label  >ชื่อตัวไทย</label>
+                            <input type="text" [(ngModel)]="userEd.FIRST_NAME"  id="firstname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อตัวไทย" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"/>
+                            <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                                <div *ngIf="f.firstname.errors.required">กรุณากรอกชื่อตัวไทย</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label  >ชื่อสกุลไทย</label>
+                            <input type="text" [(ngModel)]="userEd.LAST_NAME"  id="lastname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อสกุลไทย" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"/>
+                            <!-- <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                                <div *ngIf="f.lastname.errors.required">กรุณากรอกชื่อสกุลไทย</div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label  >หมู่โลหิต</label>
+                            <select  [(ngModel)]="userEd.BLOOD" id="blood" class="form-control input-sm" autocomplete="off">
+                                <option value="" selected disabled>เลือก</option>
+                                <option value="1">เอ</option>
+                                <option value="2">บี</option>
+                                <option value="3">เอบี</option>
+                                <option value="4">โอ</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">วันเกิด</label>
+                            <div class="input-group">
+                                <input class="form-control input-sm" [(ngModel)]="userEd.BIRTH_DATE" autocomplete="off" placeholder="dd/mm/yyyy"   id="birthdate" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" [ngClass]="{ 'is-invalid': submitted && f.birthdate.errors }"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button"></button>
+                                </div>
+                                <div *ngIf="submitted && f.birthdate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.birthdate.errors.required">กรุณาเลือกวันเกิด</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <button type="button" (click)="postdata()" class="btn btn-primary float-md-right" value="ตรวจสอบ">บันทึก</button>
+                    <!-- <button type="submit" class="btn btn-primary" [disabled]="!angForm.valid">บันทึก</button> -->
+        </div>
+    </div>
+    <div class="col-md-3">
+    </div>
+ 
+</div>
