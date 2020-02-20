@@ -63,8 +63,8 @@ public gethistoryUserId(empid: number): Observable<Usermodule>
   }
 
 
-removeEmployee(ID: number): Observable<Usermodule[]> {
-  return this.httpClient.delete<Usermodule[]>(this.baseUrl+'/deletedata.php?id='+ID );
+removeEmployee(ID: number): Observable<Usermodule> {
+  return this.httpClient.delete<Usermodule>(this.baseUrl+'/deletedata.php?id='+ID );
 }
 
 

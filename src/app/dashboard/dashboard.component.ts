@@ -12,24 +12,34 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  dtOptions: Promise<DataTables.Settings>;
-  users: Usermodule[];
+  
+  dtOptions: DataTables.Settings = {};
+  // dtOptions: Promise<DataTables.Settings>;
+  // users: Usermodule[];
   userdet: Usermodule;
   data:number;
   hoveredDate: NgbDate;
+  // BLOOD : [
+  //   {id: 1, name: 'เอ'},
+  //   {id: 2, name: 'บี'},
+  //   {id: 3, name: 'เอบี'},
+  //   {id: 4, name: 'โอ'}
+  // ];
 
+   BLOOD : [{'name':'A','code':1},{'name':'B','code':2},{'name':'B','code':3},{'name':'B','code':4}];
+  
   fromDate: NgbDate;
   toDate: NgbDate;
   form: FormGroup;
-  idcard ='';
-  sex ='';
-  blood ='';
-  title ='';
-  firstname ='';
-  lastname ='';
-  dpFromDate :any;
-  dpToDate :any;
-  testC :any;
+  // idcard ='';
+  // sex ='';
+  // blood ='';
+  // title ='';
+  // firstname ='';
+  // lastname ='';
+  // dpFromDate :any;
+  // dpToDate :any;
+  // testC :any;
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
@@ -80,6 +90,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getuserdetails();
     // this.dtOptions['search']=false;
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
   }
 
 
@@ -90,23 +103,8 @@ export class DashboardComponent implements OnInit {
     this.userdet = data;
      console.log('test userMo :',this.userdet);
     });
-  //   this.dataService.getAllUsers(this.data).subscribe(response =>
-  //     {
-        // this.users = response.map(item =>
-        // {
-          // return new Usermodule(
-          //     item.ID,
-          //     item.CITIZEN_ID,
-          //     item.TITLE,
-          //     item.FIRST_NAME,
-          //     item.LAST_NAME,
-          //     item.SEX,
-          //     item.BLOOD,
-          //     item.BIRTH_DATE,
-          // );
-      //   });
-      // });
   }
+  
 
   onCheckboxChange(e) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
@@ -151,7 +149,7 @@ deleteuserdetails(ID)
 {
   this.dataService.removeEmployee(ID)
   .subscribe( data => {
-    this.users = this.users.filter(u => u !== ID);
+    this.userdet.ID;
     // this.getuserdetails();
     console.log(ID);
   })
