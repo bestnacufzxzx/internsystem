@@ -13,8 +13,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
   
-  dtOptions: DataTables.Settings = {};
-  // dtOptions: Promise<DataTables.Settings>;
+  dtOptions: Promise<DataTables.Settings>;
   // users: Usermodule[];
   userdet: Usermodule;
   data:number;
@@ -90,9 +89,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getuserdetails();
     // this.dtOptions['search']=false;
-    this.dtOptions = {
-      pagingType: 'full_numbers'
-    };
   }
 
 
