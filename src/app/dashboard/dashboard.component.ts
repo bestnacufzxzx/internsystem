@@ -143,13 +143,7 @@ export class DashboardComponent implements OnInit {
 
 deleteuserdetails(ID)
 {
-  this.dataService.removeEmployee(ID)
-  .subscribe( data => {
-    this.userdet.ID;
-    // this.getuserdetails();
-    console.log(ID);
-  })
-  
+  this.dataService.removeEmployee(ID).subscribe()
 }
 
 // deleteuserdetails(user:Usermodule)
