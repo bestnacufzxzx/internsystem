@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+  <a class="navbar-brand" routerLink="home" routerLinkActive="active">IS - Intern System</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExample09">
+    <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="logoutbtn" routerLink="dashboard" routerLinkActive="active">หน้าหลัก</a>
+          </li>
+    </ul>
+  </div>
+  <div>
+    <a class="navbar-brand" routerLink="home" routerLinkActive="active">{{getfulname()}}</a>
+  </div>
+  <div>
+    <!-- <a class="nav-link" *ngIf="loginbtn" routerLink="registration" routerLinkActive="active">ลงทะเบียน</a> -->
+  </div>
+  <div>
+      <button type="button" *ngIf="logoutbtn" class="btn btn-danger btn-block" (click)="logout()">ออกจากระบบ</button>
+  </div>
+   
+</nav>
+<router-outlet></router-outlet>

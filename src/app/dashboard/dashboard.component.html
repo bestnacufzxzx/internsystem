@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10">
+        <br>
+        <h2 class="text-center">ข้อมูลการลงทะเบียน</h2>
+
+        <form [formGroup]="form" (ngSubmit)="submitForm()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="float-right">
+                  <p></p>
+                  <button class="btn btn-outline-danger btn-block" type="submit" value="Submit">ลบข้อมูล</button>
+                </div>
+              </div>
+            </div>
+            <br>
+    
+            <div class="row">
+              <div class="col-md-12">
+                <table class="row-border hover" id="myTable">
+                    <thead>
+                        <tr>
+                        <th scope="col" sortable="ID"> ลำดับ </th>
+                        <th scope="col" sortable="DELETE" (sort)="onSort($event)"> </th>
+                        <th scope="col" sortable="CITIZEN_ID" (sort)="onSort($event)"> เลขที่บัตรประชาชน <i
+                            class="fa fa-fw fa-sort"></i> </th>
+                        <th scope="col" sortable="TITLE" (sort)="onSort($event)"> คำนำหน้า <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th scope="col" sortable="FIRST_NAME" (sort)="onSort($event)"> ชื่อตัวไทย <i
+                            class="fa fa-fw fa-sort"></i> </th>
+                        <th scope="col" sortable="LAST_NAME" (sort)="onSort($event)"> ชื่อสกุลไทย <i
+                            class="fa fa-fw fa-sort"></i> </th>
+                        <th scope="col" sortable="SEX" (sort)="onSort($event)"> เพศ <i class="fa fa-fw fa-sort"></i> </th>
+                        <th scope="col" sortable="BLOOD" (sort)="onSort($event)"> หมู่โลหิต <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th scope="col" sortable="BIRTH_DATE" (sort)="onSort($event)"> วันเกิด <i
+                            class="fa fa-fw fa-sort"></i> </th>
+                        <th scope="col"> รายละเอียด </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="users?.length != 0">
+                        <tr *ngFor="let user of users; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>
+                            <!-- <div class="custom-control form-control-lg custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1"></label>
+                                </div> -->
+                            <input type="checkbox" [value]="user.ID" (change)="onCheckboxChange($event) " />
+                        </td>
+                        <td>{{user.CITIZEN_ID}}</td>
+                        <td>{{user.TITLE}}</td>
+                        <td>{{user.FIRST_NAME}}</td>
+                        <td>{{user.LAST_NAME}}</td>
+                        <td>{{user.SEX}}</td>
+                        <td>{{user.BLOOD}}</td>
+                        <td>{{user.BIRTH_DATE| date: 'dd/MM/yyyy'}}</td>
+                        <td> <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;">
+                            Edit</button></td>
+        
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="persons?.length == 0">
+                        <tr>
+                        <td colspan="3" class="no-data-available">ไม่พบข้อมูล !!!</td>
+                        </tr>
+                    <tbody>
+                </table>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>

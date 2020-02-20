@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">IS - Intern System</h5>
+                    <form class="form" [formGroup]="angForm" (ngSubmit)="postdata(angForm)" autocomplete="off">
+                        <div class="form-group">
+                            <label for="username" class="text-black">ชื่อผู้ใช้งาน:</label><br>
+                            <input type="text" name="username" formControlName="username" autocomplete="off" class="form-control input-sm" placeholder="ชื่อผู้ใช้งาน" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">กรุณากรอกชื่อผู้ใช้งาน</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-black">รหัสผ่าน:</label><br>
+                            <input type="password" name="Password" formControlName="password"  autocomplete="off" class="form-control input-sm" placeholder="รหัสผ่าน" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">กรุณากรอกรหัสผ่าน</div>
+                                <div *ngIf="f.password.errors.minlength">กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัว</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- <button type="submit" class="btn btn-primary float-md-right" [disabled]="!angForm.valid">บันทึก</button> -->
+                            <button type="submit" class="btn btn-primary center float-md-right" id="btnLogin">เข้าสู่ระบบ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
