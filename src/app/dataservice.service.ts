@@ -78,8 +78,8 @@ public getUserId(empid: number): Observable<Usermodule[]>
       );
   }
  
-getAllUsers(id) : Observable<Usermodule[] > {
-  return this.httpClient.get<Usermodule[]>(this.baseUrl+'/getdata.php');
+getAllUsers() : Observable<Usermodule > {
+  return this.httpClient.get<Usermodule>(this.baseUrl+'/getdata.php');
 }
  
 //token

@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   dtOptions: Promise<DataTables.Settings>;
   users: Usermodule[];
+  userdet: Usermodule;
   data:number;
   hoveredDate: NgbDate;
 
@@ -84,22 +85,27 @@ export class DashboardComponent implements OnInit {
 
   getuserdetails()
   {
-    this.dataService.getAllUsers(this.data).subscribe(response =>
-      {
-        this.users = response.map(item =>
-        {
-          return new Usermodule(
-              item.ID,
-              item.CITIZEN_ID,
-              item.TITLE,
-              item.FIRST_NAME,
-              item.LAST_NAME,
-              item.SEX,
-              item.BLOOD,
-              item.BIRTH_DATE,
-          );
-        });
-      });
+    this.dataService.getAllUsers()
+    .subscribe( data => {
+    this.userdet = data;
+     console.log('test userMo :',this.userdet);
+    });
+  //   this.dataService.getAllUsers(this.data).subscribe(response =>
+  //     {
+        // this.users = response.map(item =>
+        // {
+          // return new Usermodule(
+          //     item.ID,
+          //     item.CITIZEN_ID,
+          //     item.TITLE,
+          //     item.FIRST_NAME,
+          //     item.LAST_NAME,
+          //     item.SEX,
+          //     item.BLOOD,
+          //     item.BIRTH_DATE,
+          // );
+      //   });
+      // });
   }
 
   onCheckboxChange(e) {
@@ -146,7 +152,7 @@ deleteuserdetails(ID)
   this.dataService.removeEmployee(ID)
   .subscribe( data => {
     this.users = this.users.filter(u => u !== ID);
-    this.getuserdetails();
+    // this.getuserdetails();
     console.log(ID);
   })
   
