@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  // dtOptions: Promise<DataTables.Settings>;
+  dtOptions: Promise<DataTables.Settings>;
   users: Usermodule[];
   data:number;
   hoveredDate: NgbDate;
