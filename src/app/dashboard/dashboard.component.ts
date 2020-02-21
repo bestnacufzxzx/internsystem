@@ -16,16 +16,33 @@ export class DashboardComponent implements OnInit {
   dtOptions: Promise<DataTables.Settings>;
   // users: Usermodule[];
   userdet: Usermodule;
+  search:[];
   data:number;
   hoveredDate: NgbDate;
-  // BLOOD : [
-  //   {id: 1, name: 'เอ'},
-  //   {id: 2, name: 'บี'},
-  //   {id: 3, name: 'เอบี'},
-  //   {id: 4, name: 'โอ'}
-  // ];
 
-   BLOOD : [{'name':'A','code':1},{'name':'B','code':2},{'name':'B','code':3},{'name':'B','code':4}];
+  blood = [
+    {id: 1, name: 'เอ'},
+    {id: 2, name: 'บี'},
+    {id: 3, name: 'เอบี'},
+    {id: 4, name: 'โอ'}
+  ];
+
+  sex = [
+    {id: 1, name: 'ชาย'},
+    {id: 2, name: 'หญิง'}
+  ];
+
+  title = [
+    {id: 1, name: 'นาย'},
+    {id: 2, name: 'นาง'},
+    {id: 3, name: 'นางสาว'}
+  ];
+
+  page = [
+    {id: 1, name: 'นาย'},
+    {id: 2, name: 'นาง'},
+    {id: 3, name: 'นางสาว'}
+  ];
   
   fromDate: NgbDate;
   toDate: NgbDate;

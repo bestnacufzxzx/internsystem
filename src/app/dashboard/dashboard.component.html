@@ -31,34 +31,20 @@
               <span>{{lastname}}</span>
             </div>
           </div>
-          <!-- <button class="btn" (click)="testfunction()">testfunction</button> -->
-
-          <br>
-          <!-- <input [(ngModel)]="testC"  onkeyup="searchid()" class="form-control input-sm">
-          <span>{{testC}}</span> -->
 
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="formGroupExampleInput">เพศ</label>
-            <select  [(ngModel)]="sex" class="form-control input-sm">
-              <option value="" selected disabled>เลือก</option>
-              <option value="F">ชาย</option>
-              <option value="M">หญิง</option>
-            </select>
+            <ng-select [items]="sex" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="sex"> </ng-select>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="formGroupExampleInput">หมู่โลหิต</label>
-            <select [(ngModel)]="blood" class="form-control input-sm">
-              <option value="" selected disabled>เลือก</option>
-              <option value="1">เอ</option>
-              <option value="2">บี</option>
-              <option value="3">เอบี</option>
-              <option value="4">โอ</option>
-            </select>
+            <ng-select [items]="blood" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="blood"> </ng-select>
           </div>
+        <span>"เลือด"{{blood}}</span>
         </div>
       </div>
 
@@ -66,12 +52,7 @@
         <div class="col-md-4">
           <div class="form-group">
             <label for="formGroupExampleInput">คำนำหน้าชื่อ</label>
-            <select [(ngModel)]="title" class="form-control input-sm" placeholder="เลขบัตรประชาชน">
-              <option value="" selected disabled>เลือก</option>
-              <option value="1">นาย</option>
-              <option value="2">นาง</option>
-              <option value="3">นางสาว</option>
-            </select>
+            <ng-select [items]="title" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="title"> </ng-select>
           </div>
         </div>
         <div class="col-md-4">
@@ -146,18 +127,10 @@
           </div>
         </div>
       </div>
-      <!-- </form> -->
-
-      <!-- <br>
-      <hr/>
-      <pre>From date model: {{ fromDate | json }}</pre>
-      <pre>To date model: {{ toDate | json }}</pre> -->
-
       <br>
       <div class="row">
         <div class="col-md-3">
           <div class="float-right">
-            <!-- <button class="btn btn-outline-primary btn-block"  (click)="addUser()">เพิ่มข้อมูลทะเบียน</button> -->
           </div>
         </div>
         <div class="col-md-5">
@@ -165,11 +138,6 @@
             <button class="btn btn-outline-primary btn-block1" onclick="myFunction(test)">ค้นหา</button>
           </div>
           <div class="float-right">
-            <!-- <button onclick="document.getElementById('idcard').value = '', 
-                             document.getElementById('lastname').value = '',
-                             document.getElementById('firstname').value = ''">
-                             Clear input field
-            </button> -->
             <button class="btn btn-outline-primary btn-block2" onclick="
                             document.getElementById('idcard').value ='', 
                             document.getElementById('lastname').value = '',
@@ -186,10 +154,6 @@
         </div>
       </div>
 
-      <!-- <select [(ngModel)]="user.BLOOD">
-          <option *ngFor="user of users" [value]="BLOOD.code">{{BLOOD.name}}</option>
-        </select> -->
-        
         <div class="row">
           <div class="col-md-12">
             <div class="float-right">
