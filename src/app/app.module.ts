@@ -18,7 +18,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EdithistoryuserComponent } from './edithistoryuser/edithistoryuser.component';
 // import { AddusersComponent } from './addusers/addusers.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
  
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     // CreateuserComponent,
     // EdituserComponent,
     AdduserComponent,
-    EdithistoryuserComponent,
+    EdithistoryuserComponent, 
     // AddusersComponent,
   ],
   imports: [
@@ -40,6 +40,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgbModule,
     DataTablesModule,
+    Ng2SearchPipeModule,
     NgSelectModule
   ],
   providers: [],
