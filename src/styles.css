@@ -1,8 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-.dataTables_filter{
-    display: none !important;
-  }
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
-.dataTables_length{
+/* You can add global styles to this file, and also import other style files */
+/* .dataTables_filter{
     display: none !important;
-}
+  } */
+
+/* .dataTables_length{
+    display: none !important;
+} */

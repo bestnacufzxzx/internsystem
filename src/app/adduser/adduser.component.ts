@@ -76,6 +76,24 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 })
 export class AdduserComponent implements OnInit {
 
+  BLOOD = [
+      {id: 1, name: 'เอ'},
+      {id: 2, name: 'บี'},
+      {id: 3, name: 'เอบี'},
+      {id: 4, name: 'โอ'}
+  ];
+
+  SEX = [
+    {id: 1, name: 'ชาย'},
+    {id: 2, name: 'หญิง'}
+  ];
+
+  TITLE = [
+    {id: 1, name: 'นาย'},
+    {id: 2, name: 'นาง'},
+    {id: 3, name: 'นางสาว'}
+  ];
+  // selectedCity: any;
   
   submitted = false;
   userAdd : Usermodule;
@@ -99,6 +117,8 @@ export class AdduserComponent implements OnInit {
   }
   postdata()
   {
+    console.log(this.userAdd.BLOOD);
+
     let createby = localStorage.getItem('role');
     this.userAdd.CREATE_BY = createby;
     

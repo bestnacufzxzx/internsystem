@@ -17,6 +17,8 @@ import { AdduserComponent } from './adduser/adduser.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EdithistoryuserComponent } from './edithistoryuser/edithistoryuser.component';
 // import { AddusersComponent } from './addusers/addusers.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
  
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { EdithistoryuserComponent } from './edithistoryuser/edithistoryuser.comp
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    DataTablesModule
+    DataTablesModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],

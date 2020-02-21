@@ -22,22 +22,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >คำนำหน้าชื่อ</label>
-                            <select   id="title" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [(ngModel)]="userAdd.TITLE">
-                                <option value="" selected disabled>เลือก</option>
-                                <option value="1">นาย</option>
-                                <option value="2">นาง</option>
-                                <option value="3">นางสาว</option>
-                              </select>
+                            <ng-select [items]="TITLE" bindLabel="name" placeholder="เลือก" [(ngModel)]="userAdd.TITLE"> </ng-select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >เพศ</label>
-                            <select   id="sex" class="form-control input-sm" autocomplete="off" required [(ngModel)]="userAdd.SEX">
-                                <option value="" selected disabled>เลือก</option>
-                                <option value="M">ชาย</option>
-                                <option value="F">หญิง</option>
-                              </select>
+                            <ng-select [items]="SEX" bindLabel="name" placeholder="เลือก"  [(ngModel)]="userAdd.value"> </ng-select>
                         </div>
                     </div>
                 </div>
@@ -67,13 +58,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label  >หมู่โลหิต</label>
-                            <select  [(ngModel)]="userAdd.BLOOD" id="blood" class="form-control input-sm" autocomplete="off">
-                                <option value="" selected disabled>เลือก</option>
-                                <option value="1">เอ</option>
-                                <option value="2">บี</option>
-                                <option value="3">เอบี</option>
-                                <option value="4">โอ</option>
-                              </select>
+                                <ng-select [items]="BLOOD" bindLabel="name" placeholder="เลือก" [(ngModel)]="userAdd.BLOOD"> </ng-select>
                         </div>
                     </div>
                     <div class="col-md-6">
