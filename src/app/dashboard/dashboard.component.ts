@@ -14,9 +14,8 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   
   dtOptions: Promise<DataTables.Settings>;
-  // users: Usermodule[];
   userdet: Usermodule;
-  search:[];
+  search: Usermodule;
   data:number;
   hoveredDate: NgbDate;
 
@@ -47,15 +46,6 @@ export class DashboardComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
   form: FormGroup;
-  // idcard ='';
-  // sex ='';
-  // blood ='';
-  // title ='';
-  // firstname ='';
-  // lastname ='';
-  // dpFromDate :any;
-  // dpToDate :any;
-  // testC :any;
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
@@ -83,27 +73,11 @@ export class DashboardComponent implements OnInit {
       this.fromDate = date;
     }
   }
-
-  // isHovered(date: NgbDate) {
-  //   return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  // }
-
-  // isInside(date: NgbDate) {
-  //   return date.after(this.fromDate) && date.before(this.toDate);
-  // }
-
-  // isRange(date: NgbDate) {
-  //   return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
-  // }
-
-  // validateInput(currentValue: NgbDate, input: string): NgbDate {
-  //   const parsed = this.formatter.parse(input);
-  //   return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
-  // }
  
 
 
   ngOnInit() {
+    this.search = new Usermodule();
     this.getuserdetails();
     // this.dtOptions['search']=false;
   }
@@ -163,20 +137,6 @@ deleteuserdetails(ID)
   this.dataService.removeEmployee(ID).subscribe()
 }
 
-// deleteuserdetails(user:Usermodule)
-// {
-//   this.dataService.removeEmployee(user.CITIZEN_ID)
-//   .subscribe( data => {
-//     //this.users = this.users.filter(u => u !== user);
-//     this.getuserdetails();
-//   })
- 
-// }
-// updateUser(user: Usermodule): void {
-//   window.localStorage.removeItem("editId");
-//   window.localStorage.setItem("editId", user.CITIZEN_ID.toString());
-//   this.router.navigate(['edit']);
-// };
 updatehistoryUser(user: Usermodule): void {
   window.localStorage.removeItem("editId");
   window.localStorage.setItem("editId", user.ID.toString());

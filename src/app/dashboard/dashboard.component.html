@@ -6,72 +6,59 @@
 
       
       <!-- <form> -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput" (keypress)="numberOnly($event)" >เลขบัตรประชาชน</label>
-            <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="idcard" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput" (keypress)="numberOnly($event)" >เลขบัตรประชาชน</label>
+              <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="search.IDCARD" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
+            </div>
+  
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <span>รหัสบัตรประชน : {{idcard}}</span>
-            </div>
-            <div class="col-md-4">
-              <span>เพศ : {{sex}} </span>
-            </div>
-            <div class="col-md-4">
-              <span>คำนำหน้า : {{title}}</span>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput">เพศ</label>
+              <ng-select [items]="sex" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="search.SEX"> </ng-select>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <span>{{firstname}}</span>
-            </div>
-            <div class="col-md-6">
-              <span>{{lastname}}</span>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput">หมู่โลหิต</label>
+              <ng-select [items]="blood" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.BLOOD"> </ng-select>
             </div>
           </div>
-
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">เพศ</label>
-            <ng-select [items]="sex" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="sex"> </ng-select>
+  
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput">คำนำหน้าชื่อ</label>
+              <ng-select [items]="title" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.TITLE"> </ng-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput">ชื่อตัวไทย</label>
+              <input [(ngModel)]="search.FIRST_NAME" onkeyup="isThaichar(this.value,this)"
+                class="form-control input-sm" placeholder="ชื่อตัวไทย"
+                [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="formGroupExampleInput">ชื่อสกุลไทย</label>
+              <input [(ngModel)]="search.LAST_NAME" onkeyup="isThaichar(this.value,this)"
+                class="form-control input-sm" placeholder="ชื่อสกุลไทย"
+                [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+            </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">หมู่โลหิต</label>
-            <ng-select [items]="blood" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="blood"> </ng-select>
-          </div>
-        <span>"เลือด"{{blood}}</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">คำนำหน้าชื่อ</label>
-            <ng-select [items]="title" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="title"> </ng-select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">ชื่อตัวไทย</label>
-            <input [(ngModel)]="firstname" onkeyup="isThaichar(this.value,this)"
-              class="form-control input-sm" placeholder="ชื่อตัวไทย"
-              [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">ชื่อสกุลไทย</label>
-            <input [(ngModel)]="lastname" onkeyup="isThaichar(this.value,this)"
-              class="form-control input-sm" placeholder="ชื่อสกุลไทย"
-              [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
-          </div>
-        </div>
-      </div>
+  
+        <span>{{search.TITLE}}</span>
+        <span>{{search.SEX}}</span>
+        <span>{{search.BLOOD}}</span>
+        <span>{{search.FIRST_NAME}}</span>
+        <span>{{search.LAST_NAME}}</span>
+        <span>{{search.IDCARD}}</span>
       <div class="row">
         <div class="form-group hidden">
           <div class="input-group">
