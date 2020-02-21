@@ -22,13 +22,20 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >คำนำหน้าชื่อ</label>
-                            <ng-select [items]="TITLE" bindLabel="name" placeholder="เลือก" [(ngModel)]="userAdd.TITLE"> </ng-select>
+                            <ng-select [items]="TITLE" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="userAdd.TITLE"> </ng-select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >เพศ</label>
-                            <ng-select [items]="SEX" bindLabel="name" placeholder="เลือก"  [(ngModel)]="userAdd.value"> </ng-select>
+                            <!-- <ng-select [items]="SEX"
+                                    bindLabel="name"
+                                    bindValue="id"
+                                    [multiple]="true"
+                                    placeholder="เลือก"
+                                    [(ngModel)]="userAdd.SEX">
+                            </ng-select> -->
+                            <ng-select [items]="SEX" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="userAdd.SEX"> </ng-select>
                         </div>
                     </div>
                 </div>
@@ -58,7 +65,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label  >หมู่โลหิต</label>
-                                <ng-select [items]="BLOOD" bindLabel="name" placeholder="เลือก" [(ngModel)]="userAdd.BLOOD"> </ng-select>
+                                <ng-select [items]="BLOOD" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="userAdd.BLOOD"> </ng-select>
                         </div>
                     </div>
                     <div class="col-md-6">

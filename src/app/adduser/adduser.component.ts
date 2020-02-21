@@ -118,6 +118,8 @@ export class AdduserComponent implements OnInit {
   postdata()
   {
     console.log(this.userAdd.BLOOD);
+    console.log(this.userAdd.SEX);
+    console.log(this.userAdd.TITLE);
 
     let createby = localStorage.getItem('role');
     this.userAdd.CREATE_BY = createby;
