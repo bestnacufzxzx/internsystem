@@ -166,8 +166,8 @@ export class DashboardComponent implements OnInit {
     this.BLOOD = this.search.BLOOD;
     this.BIRTH_DATE = this.search.BIRTH_DATE;
     
-    this.dpFromDate = this.toDate.day.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.year .toString();;
-    this.dpToDate = this.toDate.day.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.year .toString();
+    this.dpFromDate = this.fromDate.year.toString() + "-" + this.fromDate.month.toString() + "-" + this.fromDate.day.toString();;
+    this.dpToDate = this.toDate.year.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.day.toString();
 
     console.log(this.dpFromDate, "", this.dpToDate);
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
