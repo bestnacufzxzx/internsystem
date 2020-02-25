@@ -6,32 +6,32 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-b
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
-@Injectable()
-export class CustomDateParserFormatter extends NgbDateParserFormatter {
+// @Injectable()
+// export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
-  readonly DELIMITER = '/';
+//   readonly DELIMITER = '/';
 
-  parse(value: string): NgbDateStruct {
-    let result: NgbDateStruct = null;
-    if (value) {
-      let date = value.split(this.DELIMITER);
-      result = {
-        day : parseInt(date[0], 10),
-        month : parseInt(date[1], 10),
-        year : parseInt(date[2], 10)
-      };
-    }
-    return result;
-  }
+//   parse(value: string): NgbDateStruct {
+//     let result: NgbDateStruct = null;
+//     if (value) {
+//       let date = value.split(this.DELIMITER);
+//       result = {
+//         day : parseInt(date[0], 10),
+//         month : parseInt(date[1], 10),
+//         year : parseInt(date[2], 10)
+//       };
+//     }
+//     return result;
+//   }
 
-  format(date: NgbDateStruct): string {
-    let result: string = null;
-    if (date) {
-      result = date.day + this.DELIMITER + date.month + this.DELIMITER + date.year;
-    }
-    return result;
-  }
-}
+//   format(date: NgbDateStruct): string {
+//     let result: string = null;
+//     if (date) {
+//       result = date.day + this.DELIMITER + date.month + this.DELIMITER + date.year;
+//     }
+//     return result;
+//   }
+// }
 
 @Component({
   selector: 'app-dashboard',
@@ -49,7 +49,16 @@ export class DashboardComponent implements OnInit {
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
-
+  
+  sum_year:number;
+  sum_month:number;
+  sum_day:number;
+  fromDatetotal:string;
+  toDatetotal:string;
+  sum:number;
+  year_month_day:string;
+  
+  
   BLOOD :any;
   CITIZEN_ID :any;
   SEX :any;
@@ -85,12 +94,13 @@ export class DashboardComponent implements OnInit {
     {id: 2, name: 'นาง'},
     {id: 3, name: 'นางสาว'}
   ];
+  // this.dateAdapter.setLocale('th-TH');
   
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-    this.form = this.fb.group({checkArray: this.fb.array([],[])}) 
+    this.fromDate = undefined;
+    this.toDate = undefined;
+    this.form = this.fb.group({checkArray: this.fb.array([],[])});
   }
    
   
@@ -98,7 +108,14 @@ export class DashboardComponent implements OnInit {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.sum_day = date.day;
+      this.sum_month = date.month;
+      this.sum_year = date.year + 543;
+      this.toDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
+
       this.toDate = date;
+    console.log("testest : "+this.toDatetotal+"-----"+date)
+
     } else {
       this.toDate = null;
       this.fromDate = date;
@@ -166,9 +183,13 @@ export class DashboardComponent implements OnInit {
     this.BLOOD = this.search.BLOOD;
     this.BIRTH_DATE = this.search.BIRTH_DATE;
     
-    this.dpFromDate = this.fromDate.year.toString() + "-" + this.fromDate.month.toString() + "-" + this.fromDate.day.toString();;
-    this.dpToDate = this.toDate.year.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.day.toString();
-
+    if(this.fromDate == null || this.fromDate == undefined){
+      this.dpFromDate = undefined;
+      this.dpToDate = undefined;
+    }else{
+      this.dpFromDate = this.fromDate.year.toString() + "-" + this.fromDate.month.toString() + "-" + this.fromDate.day.toString();
+      this.dpToDate = this.toDate.year.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.day.toString();
+    }
     console.log(this.dpFromDate, "", this.dpToDate);
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
     .subscribe( data => {
