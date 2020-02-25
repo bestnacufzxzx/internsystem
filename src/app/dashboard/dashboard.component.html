@@ -78,9 +78,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput">วันเกิด จาก</label>
             <div class="input-group">
-              <input #dpFromDate class="form-control"  placeholder="dd-mm-yyyy" name="dpFromDate"
-                onkeyup="searchdpFromDate()" [value]="formatter.format(fromDate)"
-                (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+              <input #dpFromDate class="form-control"  placeholder="dd-mm-yyyy" [value]="(fromDatetotal)"
+                (input)="fromDatetotal = validateInput(fromDatetotal, dpFromDate.value)">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
               </div>
@@ -92,8 +91,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput">ถึง</label>
             <div class="input-group">
-              <input #dpToDate class="form-control"  placeholder="dd-mm-yyyy" name="dpToDate" onkeyup="searchdpToDate()"
-                [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)">
+              <input #dpToDate class="form-control"  placeholder="dd-mm-yyyy" 
+                [value]="toDatetotal" (input)="toDatetotal = validateInput(toDatetotal, dpToDate.value)">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
               </div>
@@ -101,8 +100,7 @@
           </div>
         </div>
         <!-- {{search.toDate | json}} -->
-        {{toDate | json}}
-        <!-- {{fromDate | json}} -->
+
         <!-- {{search.fromDate | json}} -->
         <div class="col-md-4">
           <div class="form-group">

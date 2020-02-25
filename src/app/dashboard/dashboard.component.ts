@@ -106,20 +106,34 @@ export class DashboardComponent implements OnInit {
   
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
+      this.sum_day = date.day;
+      this.sum_month = date.month;
+      this.sum_year = date.year + 543;
+      
+      this.fromDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
       this.sum_day = date.day;
       this.sum_month = date.month;
       this.sum_year = date.year + 543;
-      this.toDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
 
+      this.toDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
       this.toDate = date;
-    console.log("testest : "+this.toDatetotal+"-----"+date)
 
     } else {
+      this.sum_day = date.day;
+      this.sum_month = date.month;
+      this.sum_year = date.year + 543;
+      
+
       this.toDate = null;
+      this.toDatetotal = null;
       this.fromDate = date;
+      this.fromDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
+
     }
+    console.log("testest : "+this.fromDatetotal+"+++++++"+this.toDatetotal+"-----"+date)
+
   }
 
   isHovered(date: NgbDate) {
