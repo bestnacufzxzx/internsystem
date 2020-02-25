@@ -81,6 +81,29 @@ public getUserId(empid: number): Observable<Usermodule[]>
 getAllUsers() : Observable<Usermodule > {
   return this.httpClient.get<Usermodule>(this.baseUrl+'/getdata.php');
 }
+//
+// :string CITIZEN_ID:string SEX:string TITLE:string FIRST_NAME:string LAST_NAME:string BLOOD:string BIRTH_DATE:string dpFromDate:string dpToDate
+public getseacrh(CITIZEN_ID:string, SEX:string, TITLE:string, FIRST_NAME:string, LAST_NAME:string, BLOOD:string, BIRTH_DATE:string, dpFromDate:string, dpToDate:string) 
+  {
+  return  this.httpClient.get<Usermodule>(
+          this.baseUrl + '/getseacrh.php?'+ 
+          'CITIZEN_ID=' + CITIZEN_ID
+           + "&" +
+          'TITLE=' + TITLE 
+          + "&" +
+          'SEX=' + SEX 
+          + "&" +
+          'FIRST_NAME=' + FIRST_NAME 
+          + "&" +
+          'LAST_NAME=' + LAST_NAME 
+          + "&" +
+          'BLOOD=' + BLOOD  
+          +"&" +
+          'dpFromDate=' + dpFromDate  +"&"+ 
+          'dpToDate=' + dpToDate
+          );
+
+}
  
 //token
 setToken(token: string) {

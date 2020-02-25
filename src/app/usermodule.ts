@@ -1,18 +1,21 @@
 
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 
 export class Usermodule {
 
   // <!-- CITIZEN_ID,TITLE,FIRST_NAME,LAST_NAME,SEX,BLOOD,BIRTH_DATE FROM is_t_citizen -->
-    public ID: string;
-    public CITIZEN_ID: string;
-    public TITLE: string;
-    public FIRST_NAME:string;
-    public LAST_NAME:string;
-    public SEX:string;
-    public BLOOD:string;
-    public BIRTH_DATE:string;
-    public USER_NAME:string;
-    public CREATE_BY:string;
+    ID: string;
+    CITIZEN_ID: string;
+    TITLE: string;
+    FIRST_NAME:string;
+    LAST_NAME:string;
+    SEX:string;
+    BLOOD:string;
+    BIRTH_DATE:string;
+    USER_NAME:string;
+    CREATE_BY:string;
+    fromDate:NgbDate;
+    toDate:NgbDate;
     // static CREATE_BY: string;
   
 

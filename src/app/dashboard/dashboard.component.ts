@@ -1,10 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injectable } from '@angular/core';
 import { DataserviceService } from '../dataservice.service';
 import { Usermodule } from '../usermodule';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 // import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct {
+    let result: NgbDateStruct = null;
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      result = {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return result;
+  }
+
+  format(date: NgbDateStruct): string {
+    let result: string = null;
+    if (date) {
+      result = date.day + this.DELIMITER + date.month + this.DELIMITER + date.year;
+    }
+    return result;
+  }
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +44,23 @@ export class DashboardComponent implements OnInit {
   userdet: Usermodule;
   search: Usermodule;
   data:number;
+  form: FormGroup;
+  //Datepicker
   hoveredDate: NgbDate;
+  fromDate: NgbDate;
+  toDate: NgbDate;
+
+  BLOOD :any;
+  CITIZEN_ID :any;
+  SEX :any;
+  TITLE :any;
+  FIRST_NAME :any;
+  LAST_NAME :any;
+  BIRTH_DATE :any;
+  dpFromDate :string;
+  dpToDate :string;
+  //
+  
 
   blood = [
     {id: 1, name: 'เอ'},
@@ -43,9 +86,6 @@ export class DashboardComponent implements OnInit {
     {id: 3, name: 'นางสาว'}
   ];
   
-  fromDate: NgbDate;
-  toDate: NgbDate;
-  form: FormGroup;
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
     this.fromDate = calendar.getToday();
@@ -53,16 +93,7 @@ export class DashboardComponent implements OnInit {
     this.form = this.fb.group({checkArray: this.fb.array([],[])}) 
   }
    
-
-  numberOnly(event): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-  }
   
-
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
@@ -73,22 +104,76 @@ export class DashboardComponent implements OnInit {
       this.fromDate = date;
     }
   }
- 
 
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
 
+  isInside(date: NgbDate) {
+    return date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+  
   ngOnInit() {
     this.search = new Usermodule();
     this.getuserdetails();
     // this.dtOptions['search']=false;
+    // CITIZEN_ID = this.search.TITLE ;
   }
 
+  btn_submit(){
+    this.getseacrh()
+    // console.log(this.search.CITIZEN_ID);
+    // console.log(this.search.BLOOD);
+    // console.log(this.search.SEX);
+    // console.log(this.search.TITLE);
+    // console.log(this.search.FIRST_NAME);
+    // console.log(this.search.LAST_NAME);
+    // console.log(this.search.BLOOD);
+    // console.log(this.search.BIRTH_DATE);
+    // console.log(this.search.dpFromDate);
+    // console.log(this.search.dpToDate);
+  }
 
   getuserdetails()
   {
+    // this.dataService.getAllUsers(CITIZEN_ID)
     this.dataService.getAllUsers()
     .subscribe( data => {
     this.userdet = data;
      console.log('test userMo :',this.userdet);
+    });
+  }
+
+  getseacrh()
+  {
+    this.CITIZEN_ID = this.search.CITIZEN_ID;
+    this.SEX = this.search.SEX;
+    this.TITLE = this.search.TITLE;
+    this.FIRST_NAME = this.search.FIRST_NAME;
+    this.LAST_NAME = this.search.LAST_NAME;
+    this.BLOOD = this.search.BLOOD;
+    this.BIRTH_DATE = this.search.BIRTH_DATE;
+    
+    this.dpFromDate = this.toDate.day.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.year .toString();;
+    this.dpToDate = this.toDate.day.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.year .toString();
+
+    console.log(this.dpFromDate, "", this.dpToDate);
+    this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
+    .subscribe( data => {
+    this.userdet = data;
+     console.log('test search :',this.userdet);
     });
   }
   
@@ -96,16 +181,12 @@ export class DashboardComponent implements OnInit {
   onCheckboxChange(e) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
     let sum = ''
-
     checkArray.controls.forEach((item: FormControl) => {
       if (item.value == e.target.value) {
         }
         sum =  item.value[0]+","
-
     });
     localStorage.setItem('sum', sum)
-    
-    
     
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -122,8 +203,6 @@ export class DashboardComponent implements OnInit {
 
 
   }
-
-  
   submitForm() {
     let sum = ''
     console.log(this.form.value)

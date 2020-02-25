@@ -10,7 +10,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="formGroupExampleInput" (keypress)="numberOnly($event)" >เลขบัตรประชาชน</label>
-              <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="search.IDCARD" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
+              <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="search.CITIZEN_ID" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
             </div>
   
           </div>
@@ -58,7 +58,7 @@
         <span>{{search.BLOOD}}</span>
         <span>{{search.FIRST_NAME}}</span>
         <span>{{search.LAST_NAME}}</span>
-        <span>{{search.IDCARD}}</span>
+        <span>{{search.CITIZEN_ID}}</span>
       <div class="row">
         <div class="form-group hidden">
           <div class="input-group">
@@ -78,7 +78,7 @@
           <div class="form-group">
             <label for="formGroupExampleInput">วันเกิด จาก</label>
             <div class="input-group">
-              <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+              <input #dpFromDate class="form-control"  placeholder="dd-mm-yyyy" name="dpFromDate"
                 onkeyup="searchdpFromDate()" [value]="formatter.format(fromDate)"
                 (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
               <div class="input-group-append">
@@ -92,7 +92,7 @@
           <div class="form-group">
             <label for="formGroupExampleInput">ถึง</label>
             <div class="input-group">
-              <input #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate" onkeyup="searchdpToDate()"
+              <input #dpToDate class="form-control"  placeholder="dd-mm-yyyy" name="dpToDate" onkeyup="searchdpToDate()"
                 [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
@@ -100,6 +100,10 @@
             </div>
           </div>
         </div>
+        <!-- {{search.toDate | json}} -->
+        {{toDate | json}}
+        <!-- {{fromDate | json}} -->
+        <!-- {{search.fromDate | json}} -->
         <div class="col-md-4">
           <div class="form-group">
             <label for="formGroupExampleInput">จำนวนรายการ/หน้า</label>
@@ -122,16 +126,11 @@
         </div>
         <div class="col-md-5">
           <div class="float-left">
-            <button class="btn btn-outline-primary btn-block1" onclick="myFunction(test)">ค้นหา</button>
+            <!-- onclick="myFunction(test)" -->
+            <button class="btn btn-outline-primary btn-block1" type="button" (click)="btn_submit()">ค้นหา</button>
           </div>
           <div class="float-right">
-            <button class="btn btn-outline-primary btn-block2" onclick="
-                            document.getElementById('idcard').value ='', 
-                            document.getElementById('lastname').value = '',
-                            document.getElementById('firstname').value = ''" type="refresh">
-              ล้างข้อมูล
-
-            </button>
+            <button class="btn btn-outline-primary btn-block2"  type="reset" value="Reset"> ล้างข้อมูล </button>
           </div>
         </div>
         <div class="col-md-4">
@@ -175,22 +174,36 @@
                 </tr>
               </thead>
               <tbody *ngIf="userdet?.length != 0">
-                <tr *ngFor="let user of userdet; let i = index">
+                <tr *ngFor="let user of userdet | filter:user; let i = index">
                   <td>{{i+1}}</td>
                   <td>
-                    <!-- <div class="custom-control form-control-lg custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1"></label>
-                        </div> -->
                     <input type="checkbox" [value]="user.ID" (change)="onCheckboxChange($event) " />
                   </td>
                   <td>{{user.CITIZEN_ID}}</td>
-                  <td>{{user.TITLE}}</td>
+                  <td>
+                    <p *ngIf="user.TITLE == 1">นาย</p>
+                    <p *ngIf="user.TITLE == 2">นาง</p>
+                    <p *ngIf="user.TITLE == 3">นางสาว</p>
+                  </td>
                   <td>{{user.FIRST_NAME}}</td>
                   <td>{{user.LAST_NAME}}</td>
-                  <td>{{user.SEX}}</td>
-                  <td>{{user.BLOOD}}</td>
-                  <td>{{user.BIRTH_DATE| date: 'dd/MM/yyyy'}}</td>
+                  <td>
+                    <p *ngIf="user.SEX == 'M'">ชาย</p>
+                    <p *ngIf="user.SEX == 'F'">หญิง</p>
+                  </td>
+                  <td>
+                    <p *ngIf="user.BLOOD == 1">เอ</p>
+                    <p *ngIf="user.BLOOD == 2">บี</p>
+                    <p *ngIf="user.BLOOD == 3">เอบี</p>
+                    <p *ngIf="user.BLOOD == 4">โอ</p>
+                  </td>
+                  <td>
+                    <p *ngIf="user.BIRTH_DATE"></p>
+                    <!-- {{user.BIRTH_DATE| date: 'วัน dd '}} -->
+                    <!-- {{user.BIRTH_DATE| date: 'เดือน MM'}} -->
+                    {{user.BIRTH_DATE | date:'dd/MM/yyyy'}}
+
+                  </td>
                   <td> <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;">
                       Edit</button></td>
 

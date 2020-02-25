@@ -1,9 +1,9 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 /* You can add global styles to this file, and also import other style files */
-/* .dataTables_filter{
+.dataTables_filter{
     display: none !important;
-  } */
+  }
 
 /* .dataTables_length{
     display: none !important;
