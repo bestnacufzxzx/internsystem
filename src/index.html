@@ -9,5 +9,79 @@
 </head>
 <body>
   <app-root></app-root>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myInput");
+      document.getElementById("demo").innerHTML = "You are searching for: " + x.value;
+    }
+
+    function checkID(id)
+    {
+      if(id.length != 13) return false;
+      for(i=0, sum=0; i < 12; i++)
+      sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12)))
+      return false;
+      return true;
+    }
+
+    function checkForm(){ 
+      if(!checkID(document.form1.txtID.value))
+      alert('รหัสประชาชนไม่ถูกต้อง');
+      else alert('รหัสประชาชนถูกต้อง');
+    }
+
+    function isThaichar(str,obj){
+        var isThai=true;
+        var orgi_text=" ๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝู฿ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ";
+        var chk_text=str.split("");
+        chk_text.filter(function(s){        
+            if(orgi_text.indexOf(s)==-1){
+                isThai=false;
+                obj.value=str.replace(RegExp(s, "g"),'');
+            }           
+        }); 
+        return isThai; 
+    }
+
+    function searchid() {
+      var input, filter1, filter2, table, tr, td, i, txtValue;
+      idcard = document.getElementById("idcard");
+      firstname = document.getElementById("firstname");
+      filter1 = idcard.value.toUpperCase();
+      filter2 = firstname.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+
+      if(filter1){
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[2];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter1) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }      
+      }
+      if (filter2){
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[4];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter1) > -1  || txtValue.toUpperCase().indexOf(filter2) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }      
+      }
+
+    }
+  </script>  
+
 </body>
 </html>

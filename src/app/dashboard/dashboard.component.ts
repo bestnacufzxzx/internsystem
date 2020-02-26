@@ -104,6 +104,7 @@ export class DashboardComponent implements OnInit {
   }
    
   
+  
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.sum_day = date.day;
@@ -161,8 +162,19 @@ export class DashboardComponent implements OnInit {
     this.getuserdetails();
     // this.dtOptions['search']=false;
     // CITIZEN_ID = this.search.TITLE ;
+    this.clear()
   }
 
+  clear(){
+    this.search.CITIZEN_ID = undefined;
+    this.search.FIRST_NAME=undefined;
+    this.search.LAST_NAME=undefined;
+    this.search.SEX=undefined;
+    this.search.BLOOD=undefined;
+    this.search.TITLE=undefined;
+    this.fromDatetotal ='';
+    this.toDatetotal ='';
+    }
   btn_submit(){
     this.getseacrh()
     // console.log(this.search.CITIZEN_ID);
