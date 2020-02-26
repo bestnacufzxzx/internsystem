@@ -11,6 +11,7 @@ import {
   NgbDateParserFormatter
 } from '@ng-bootstrap/ng-bootstrap';
 
+
 @Injectable()
 export class CustomAdapter extends NgbDateAdapter<string> {
 
@@ -97,6 +98,18 @@ export class AdduserComponent implements OnInit {
   
   submitted = false;
   userAdd : Usermodule;
+  CITIZEN_ID: any;
+  LAST_NAME: any;
+  FIRST_NAME: any;
+  BIRTH_DATE: any;
+  validate_idcard: any;
+  validate_CITIZEN_ID: string;
+  validate_SEX: string;
+  validate_TITLE: string;
+  validate_BLOOD: string;
+  validate_BIRTH_DATE: string;
+  validate_FIRST_NAME: string;
+  validate_LAST_NAME: string;
 
   constructor(private fb: FormBuilder,private dataService: DataserviceService,private router:Router) {}
   onReset() {
@@ -104,9 +117,10 @@ export class AdduserComponent implements OnInit {
   }
   
   ngOnInit() {
-
     this.userAdd = new Usermodule();
+    // this.inOutvaridate();
   }
+ 
 
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
@@ -115,28 +129,132 @@ export class AdduserComponent implements OnInit {
     }
     return true;
   }
+  inOutvaridate(){
+    this.CITIZEN_ID;
+    this.SEX;
+    this.TITLE;
+    this.BLOOD;
+    this.BIRTH_DATE;
+    this.FIRST_NAME;
+    this.LAST_NAME;
+  //  console 
+  }
+
   postdata()
   {
-    console.log(this.userAdd.BLOOD);
-    console.log(this.userAdd.SEX);
-    console.log(this.userAdd.TITLE);
+    // this.Validators_CITIZEN_ID();
+    this.Validators_TITLE();
+    this.Validators_BLOOD();
+    this.Validators_SEX();
+    this.Validators_BIRTH_DATE();
+    this.Validators_FIRST_NAME();
+    this.Validators_LAST_NAME();
 
-    let createby = localStorage.getItem('role');
-    this.userAdd.CREATE_BY = createby;
-    
-    this.dataService.adduser(this.userAdd)
-    .pipe(first())
-    .subscribe(
-        data => {
-          // this.router.navigate(['dashboard']);
-            // this.router.navigate(['login']);
-            alert("บันทึกไม่สำเร็จ");
-        },
-        error => {
-          alert("บันทึกสำเร็จ");
-          // this.router.navigate(['dashboard']);
-        });
- 
+    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BLOOD != undefined && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
+      let createby = localStorage.getItem('role');
+      this.userAdd.CREATE_BY = createby;
+      this.dataService.adduser(this.userAdd)
+      .pipe(first())
+      .subscribe(
+          data => {
+            // this.router.navigate(['dashboard']);
+              // this.router.navigate(['login']);
+              alert("บันทึกไม่สำเร็จ");
+          },
+          error => {
+            alert("บันทึกสำเร็จ");
+            // this.router.navigate(['dashboard']);
+          });
+    }
+   
   }
+  Validators_CITIZEN_ID(){
+    if(this.userAdd.CITIZEN_ID == undefined){
+      this.validate_CITIZEN_ID = '0';
+      console.log("CITIZEN_ID",this.validate_CITIZEN_ID);
+    }else{
+      this.validate_CITIZEN_ID = '1';
+    }
+  }
+  Validators_SEX(){
+    if(this.userAdd.SEX == undefined){
+      this.validate_SEX = '0'
+    console.log("SEX",this.validate_SEX);
+    }else{
+      this.validate_SEX = '1';
+    }
+  }
+  Validators_TITLE(){
+    if(this.userAdd.TITLE == undefined){
+      this.validate_TITLE = '0';
+      console.log("TITLE",this.validate_TITLE);
+    }else{
+      this.validate_TITLE = '1';
+    }
+  }
+  Validators_BLOOD(){
+    if(this.userAdd.BLOOD == undefined){
+      this.validate_BLOOD = '0';
+      console.log("BLOOD",this.validate_BLOOD);
+    }else{
+      this.validate_BLOOD = '1';
+    }
+  }
+  Validators_BIRTH_DATE(){
+    if(this.userAdd.BIRTH_DATE == undefined){
+      this.validate_BIRTH_DATE = '0';
+      console.log("BIRTH_DATE",this.validate_BIRTH_DATE);
+    }else{
+      this.validate_BIRTH_DATE = '1';
+    }
+  }
+  Validators_FIRST_NAME(){
+    if(this.userAdd.FIRST_NAME == undefined){
+      this.validate_FIRST_NAME = '0';
+      console.log("FIRST_NAME",this.validate_FIRST_NAME);
+    }else{
+      this.validate_FIRST_NAME = '1';
+    }
+  }
+  Validators_LAST_NAME(){
+    if(this.userAdd.LAST_NAME == undefined){
+      this.validate_LAST_NAME = '0';
+      console.log("LAST_NAME",this.validate_LAST_NAME);
+    }else{
+      this.validate_LAST_NAME = '1';
+    }
+  }
+  // if(this.userAdd.CITIZEN_ID == undefined){
+  //   this.validate_CITIZEN_ID = '';
+  // }
+  // if(this.userAdd.SEX == undefined){
+  //   this.validate_SEX = '';
+  // }
+  // if(this.userAdd.TITLE == undefined){
+  //   this.validate_TITLE = '';
+  // }
+  // if(this.userAdd.FIRST_NAME == undefined){
+  //   this.validate_BLOOD = '';
+  // }
+  // if(this.userAdd.BIRTH_DATE == undefined){
+  //   this.validate_BIRTH_DATE = '';
+  // }
+  // if(this.userAdd.FIRST_NAME == undefined){
+  //   this.validate_FIRST_NAME = '';
+  // }
+  // if(this.userAdd.LAST_NAME == undefined){
+  //   this.validate_LAST_NAME = '';
+  // }
+  // else{
+  //   this.validate_CITIZEN_ID = this.userAdd.CITIZEN_ID;
+  //   this.validate_SEX = this.userAdd.SEX;
+  //   this.validate_TITLE = this.userAdd.TITLE;
+  //   this.validate_BLOOD = this.userAdd.BLOOD;
+  //   this.validate_BIRTH_DATE = this.userAdd.BIRTH_DATE;
+  //   this.validate_FIRST_NAME = this.userAdd.FIRST_NAME;
+  //   this.validate_LAST_NAME = this.userAdd.LAST_NAME;
+  //   // console.log(this.userAdd.CITIZEN_ID);
+  // }
+
 }
 
