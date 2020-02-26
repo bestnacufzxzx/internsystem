@@ -153,7 +153,7 @@ export class AdduserComponent implements OnInit {
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
 
-    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BLOOD != undefined && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
+    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.CITIZEN_ID != '' && this.userAdd.CITIZEN_ID != null && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BLOOD != undefined && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
       let createby = localStorage.getItem('role');
       this.userAdd.CREATE_BY = createby;
       this.dataService.adduser(this.userAdd)
@@ -181,7 +181,7 @@ export class AdduserComponent implements OnInit {
     else{
       this.validate_CITIZEN_ID = '1';
     }
-    if(num.length <= 12){
+    if(num.length <= 12  && num != ''){
       this.validate_CITIZEN_IDMIN = '2';
       console.log(num.length,this.validate_CITIZEN_IDMIN);
     }else if(num.length >= 14){
