@@ -110,6 +110,9 @@ export class AdduserComponent implements OnInit {
   validate_BIRTH_DATE: string;
   validate_FIRST_NAME: string;
   validate_LAST_NAME: string;
+  validate_CITIZEN_IDMAX: string;
+  validate_CITIZEN_IDMIN: string;
+  // num:number;
 
   constructor(private fb: FormBuilder,private dataService: DataserviceService,private router:Router) {}
   onReset() {
@@ -129,16 +132,16 @@ export class AdduserComponent implements OnInit {
     }
     return true;
   }
-  inOutvaridate(){
-    this.CITIZEN_ID;
-    this.SEX;
-    this.TITLE;
-    this.BLOOD;
-    this.BIRTH_DATE;
-    this.FIRST_NAME;
-    this.LAST_NAME;
-  //  console 
-  }
+  // inOutvaridate(){
+  //   this.CITIZEN_ID;
+  //   this.SEX;
+  //   this.TITLE;
+  //   this.BLOOD;
+  //   this.BIRTH_DATE;
+  //   this.FIRST_NAME;
+  //   this.LAST_NAME;
+  // //  console 
+  // }
 
   postdata()
   {
@@ -169,11 +172,21 @@ export class AdduserComponent implements OnInit {
    
   }
   Validators_CITIZEN_ID(){
-    if(this.userAdd.CITIZEN_ID == undefined){
+    var num = new String(this.userAdd.CITIZEN_ID);
+    // console.log(num)
+    if(this.userAdd.CITIZEN_ID == undefined || this.userAdd.CITIZEN_ID == '' || this.userAdd.CITIZEN_ID == null){
       this.validate_CITIZEN_ID = '0';
       console.log("CITIZEN_ID",this.validate_CITIZEN_ID);
-    }else{
+    }
+    else{
       this.validate_CITIZEN_ID = '1';
+    }
+    if(num.length <= 12){
+      this.validate_CITIZEN_IDMIN = '2';
+      console.log(num.length,this.validate_CITIZEN_IDMIN);
+    }else if(num.length >= 14){
+      this.validate_CITIZEN_IDMAX = '3';
+      console.log(num.length,this.validate_CITIZEN_IDMAX);
     }
   }
   Validators_SEX(){
@@ -201,7 +214,7 @@ export class AdduserComponent implements OnInit {
     }
   }
   Validators_BIRTH_DATE(){
-    if(this.userAdd.BIRTH_DATE == undefined){
+    if(this.userAdd.BIRTH_DATE == undefined || this.userAdd.BIRTH_DATE == null || this.userAdd.BIRTH_DATE == ''){
       this.validate_BIRTH_DATE = '0';
       console.log("BIRTH_DATE",this.validate_BIRTH_DATE);
     }else{
@@ -209,7 +222,7 @@ export class AdduserComponent implements OnInit {
     }
   }
   Validators_FIRST_NAME(){
-    if(this.userAdd.FIRST_NAME == undefined){
+    if(this.userAdd.FIRST_NAME == undefined || this.userAdd.FIRST_NAME == '' || this.userAdd.FIRST_NAME == null){
       this.validate_FIRST_NAME = '0';
       console.log("FIRST_NAME",this.validate_FIRST_NAME);
     }else{
@@ -217,7 +230,7 @@ export class AdduserComponent implements OnInit {
     }
   }
   Validators_LAST_NAME(){
-    if(this.userAdd.LAST_NAME == undefined){
+    if(this.userAdd.LAST_NAME == undefined || this.userAdd.LAST_NAME == '' || this.userAdd.LAST_NAME == null){
       this.validate_LAST_NAME = '0';
       console.log("LAST_NAME",this.validate_LAST_NAME);
     }else{

@@ -10,11 +10,12 @@
                         <div class="form-group">
                             <label >เลขบัตรประชาชน</label>
                             <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="userEd.CITIZEN_ID" name="txtID" id="idcard" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [ngClass]="{ 'is-invalid': submitted && f.idcard.errors }"/>
-                            <div *ngIf="submitted && f.idcard.errors" class="invalid-feedback">
+                            <div *ngIf=" validate_CITIZEN_ID == '0'"><h6>กรุณากรอกเลขบัตรประชาชน</h6></div>
+                            <!-- <div *ngIf="submitted && f.idcard.errors" class="invalid-feedback">
                                 <div *ngIf="f.idcard.errors.required">กรุณากรอกเลขบัตรประชาชน</div>
                                 <div *ngIf="f.idcard.errors.minlength">กรุณากรอกให้ครบ 13 ตัว</div>
                                 <div *ngIf="f.idcard.errors.maxlength">เลขบัตรประชาชนเกิน 13 ตัว</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -28,6 +29,7 @@
                                 <option value="2">นาง</option>
                                 <option value="3">นางสาว</option>
                               </select>
+                            <div *ngIf=" validate_TITLE == '0'"><h6>กรุณาเลือกคำนำหน้า</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -38,6 +40,7 @@
                                 <option value="M">ชาย</option>
                                 <option value="F">หญิง</option>
                             </select>
+                            <div *ngIf=" validate_SEX == '0'"><h6>กรุณาเลือกเพศ</h6></div>
                         </div>
                     </div>
                 </div>
@@ -47,18 +50,15 @@
                         <div class="form-group">
                             <label  >ชื่อตัวไทย</label>
                             <input type="text" [(ngModel)]="userEd.FIRST_NAME"  id="firstname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อตัวไทย" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"/>
-                            <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                                <div *ngIf="f.firstname.errors.required">กรุณากรอกชื่อตัวไทย</div>
-                            </div>
+                            <div *ngIf="validate_FIRST_NAME == '0'"><h6>กรุณากรอกชื่อตัวไทย</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label  >ชื่อสกุลไทย</label>
                             <input type="text" [(ngModel)]="userEd.LAST_NAME"  id="lastname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อสกุลไทย" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"/>
-                            <!-- <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-                                <div *ngIf="f.lastname.errors.required">กรุณากรอกชื่อสกุลไทย</div>
-                            </div> -->
+                            <div *ngIf="validate_LAST_NAME == '0'"><h6>กรุณากรอกชื่อสกุลไทย</h6></div>
+
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,7 @@
                                 <option value="3">เอบี</option>
                                 <option value="4">โอ</option>
                               </select>
+                              <div *ngIf="validate_BLOOD == '0'"><h6>กรุณากรอกชื่อสกุลไทย</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -84,10 +85,8 @@
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button"></button>
                                 </div>
-                                <div *ngIf="submitted && f.birthdate.errors" class="invalid-feedback">
-                                    <div *ngIf="f.birthdate.errors.required">กรุณาเลือกวันเกิด</div>
-                                </div>
                             </div>
+                            <div *ngIf="validate_BIRTH_DATE == '0'"><h6>กรุณาเลือกวันเกิด</h6></div>
                         </div>
                     </div>
                 </div>
