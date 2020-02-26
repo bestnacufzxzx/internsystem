@@ -86,6 +86,8 @@ export class EdithistoryuserComponent implements OnInit {
   validate_BIRTH_DATE: string;
   validate_FIRST_NAME: string;
   validate_LAST_NAME: string;
+  validate_CITIZEN_IDMIN: string;
+  validate_CITIZEN_IDMAX: string;
 
   constructor(private fb: FormBuilder,private dataService: DataserviceService,private router:Router) {}
   onReset() {
@@ -125,7 +127,7 @@ export class EdithistoryuserComponent implements OnInit {
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
     
-    if(this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != '' && this.userEd.SEX != '' && this.userEd.BLOOD != '' && this.userEd.BIRTH_DATE != '' && this.userEd.BIRTH_DATE !== null && this.userEd.FIRST_NAME != '' && this.userEd.LAST_NAME !=''){
+    if(this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
       let updateby = localStorage.getItem('role');
       this.userEd.USER_NAME = updateby;
       this.dataService.edithistoryuser(this.userEd)
@@ -145,15 +147,25 @@ export class EdithistoryuserComponent implements OnInit {
   }
 
   Validators_CITIZEN_ID(){
-    if(this.userEd.CITIZEN_ID == ''){
+    var num = new String(this.userEd.CITIZEN_ID);
+    // console.log(num)
+    if(this.userEd.CITIZEN_ID == undefined || this.userEd.CITIZEN_ID == '' || this.userEd.CITIZEN_ID == null){
       this.validate_CITIZEN_ID = '0';
       console.log("CITIZEN_ID",this.validate_CITIZEN_ID);
-    }else{
+    }
+    else{
       this.validate_CITIZEN_ID = '1';
+    }
+    if(num.length <= 12 && num != ''){
+      this.validate_CITIZEN_IDMIN = '2';
+      console.log(num.length,this.validate_CITIZEN_IDMIN);
+    }else if(num.length >= 14){
+      this.validate_CITIZEN_IDMAX = '3';
+      console.log(num.length,this.validate_CITIZEN_IDMAX);
     }
   }
   Validators_SEX(){
-    if(this.userEd.SEX == ''){
+    if(this.userEd.SEX == undefined){
       this.validate_SEX = '0'
     console.log("SEX",this.validate_SEX);
     }else{
@@ -161,7 +173,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
   Validators_TITLE(){
-    if(this.userEd.TITLE == ''){
+    if(this.userEd.TITLE == undefined){
       this.validate_TITLE = '0';
       console.log("TITLE",this.validate_TITLE);
     }else{
@@ -169,7 +181,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
   Validators_BLOOD(){
-    if(this.userEd.BLOOD == ''){
+    if(this.userEd.BLOOD == undefined){
       this.validate_BLOOD = '0';
       console.log("BLOOD",this.validate_BLOOD);
     }else{
@@ -177,7 +189,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
   Validators_BIRTH_DATE(){
-    if(this.userEd.BIRTH_DATE == '' || this.userEd.BIRTH_DATE == undefined){
+    if(this.userEd.BIRTH_DATE == undefined || this.userEd.BIRTH_DATE == null || this.userEd.BIRTH_DATE == ''){
       this.validate_BIRTH_DATE = '0';
       console.log("BIRTH_DATE",this.validate_BIRTH_DATE);
     }else{
@@ -185,7 +197,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
   Validators_FIRST_NAME(){
-    if(this.userEd.FIRST_NAME == ''){
+    if(this.userEd.FIRST_NAME == undefined || this.userEd.FIRST_NAME == '' || this.userEd.FIRST_NAME == null){
       this.validate_FIRST_NAME = '0';
       console.log("FIRST_NAME",this.validate_FIRST_NAME);
     }else{
@@ -193,7 +205,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
   Validators_LAST_NAME(){
-    if(this.userEd.LAST_NAME == ''){
+    if(this.userEd.LAST_NAME == undefined || this.userEd.LAST_NAME == '' || this.userEd.LAST_NAME == null){
       this.validate_LAST_NAME = '0';
       console.log("LAST_NAME",this.validate_LAST_NAME);
     }else{

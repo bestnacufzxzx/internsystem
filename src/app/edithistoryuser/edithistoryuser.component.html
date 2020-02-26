@@ -11,11 +11,9 @@
                             <label >เลขบัตรประชาชน</label>
                             <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="userEd.CITIZEN_ID" name="txtID" id="idcard" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [ngClass]="{ 'is-invalid': submitted && f.idcard.errors }"/>
                             <div *ngIf=" validate_CITIZEN_ID == '0'"><h6>กรุณากรอกเลขบัตรประชาชน</h6></div>
-                            <!-- <div *ngIf="submitted && f.idcard.errors" class="invalid-feedback">
-                                <div *ngIf="f.idcard.errors.required">กรุณากรอกเลขบัตรประชาชน</div>
-                                <div *ngIf="f.idcard.errors.minlength">กรุณากรอกให้ครบ 13 ตัว</div>
-                                <div *ngIf="f.idcard.errors.maxlength">เลขบัตรประชาชนเกิน 13 ตัว</div>
-                            </div> -->
+                            <div *ngIf=" validate_CITIZEN_IDMIN == '2'"><h6>กรุณากรอกให้ครบ 13 ตัว</h6></div>
+                            <div *ngIf=" validate_CITIZEN_IDMAX == '3'"><h6>เลขบัตรประชาชนเกิน 13 ตัว</h6></div>
+                            
                         </div>
                     </div>
                 </div>
