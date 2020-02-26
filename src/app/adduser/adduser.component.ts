@@ -142,7 +142,7 @@ export class AdduserComponent implements OnInit {
 
   postdata()
   {
-    // this.Validators_CITIZEN_ID();
+    this.Validators_CITIZEN_ID();
     this.Validators_TITLE();
     this.Validators_BLOOD();
     this.Validators_SEX();
