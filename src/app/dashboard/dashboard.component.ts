@@ -136,7 +136,8 @@ export class DashboardComponent implements OnInit {
     this.getuserdetails();
     // this.dtOptions['search']=false;
     // CITIZEN_ID = this.search.TITLE ;
-    this.clear()
+    this.clear();
+    this.submitForm();
   }
 
   clear(){

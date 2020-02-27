@@ -181,9 +181,9 @@ export class AdduserComponent implements OnInit {
     else{
       this.validate_CITIZEN_ID = '1';
     }
-    if(num.length <= 12  && num != ''){
+    if(num.length <= 12  && num != '' && num.length != 9 && num != null ){
       this.validate_CITIZEN_IDMIN = '2';
-      console.log(num.length,this.validate_CITIZEN_IDMIN);
+      console.log(num.length,this.validate_CITIZEN_IDMIN,num);
     }else if(num.length >= 14){
       this.validate_CITIZEN_IDMAX = '3';
       console.log(num.length,this.validate_CITIZEN_IDMAX);

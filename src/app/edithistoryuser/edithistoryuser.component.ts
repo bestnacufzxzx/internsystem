@@ -118,6 +118,8 @@ export class EdithistoryuserComponent implements OnInit {
   }
   postdata()
   {
+    let num = new String(this.userEd.CITIZEN_ID);
+
     
     this.Validators_CITIZEN_ID();
     this.Validators_TITLE();
@@ -127,27 +129,27 @@ export class EdithistoryuserComponent implements OnInit {
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
     
-    if(this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
+    if( num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
       let updateby = localStorage.getItem('role');
       this.userEd.USER_NAME = updateby;
       this.dataService.edithistoryuser(this.userEd)
       .pipe(first())
       .subscribe(
           data => {
-            // this.router.navigate(['dashboard']); 
+            this.router.navigate(['dashboard']); 
             alert("บันทึกสำเร็จ");
   
           },
           error => {
             alert("บันทึกไม่สำเร็จ");
-            // this.router.navigate(['dashboard']);
+            this.router.navigate(['edituser']);
   
           });
     }
   }
 
   Validators_CITIZEN_ID(){
-    var num = new String(this.userEd.CITIZEN_ID);
+    let num = new String(this.userEd.CITIZEN_ID);
     // console.log(num)
     if(this.userEd.CITIZEN_ID == undefined || this.userEd.CITIZEN_ID == '' || this.userEd.CITIZEN_ID == null){
       this.validate_CITIZEN_ID = '0';
@@ -156,7 +158,7 @@ export class EdithistoryuserComponent implements OnInit {
     else{
       this.validate_CITIZEN_ID = '1';
     }
-    if(num.length <= 12 && num != ''){
+    if(num.length < 12 && num != '' && num.length != 9){
       this.validate_CITIZEN_IDMIN = '2';
       console.log(num.length,this.validate_CITIZEN_IDMIN);
     }else if(num.length >= 14){
