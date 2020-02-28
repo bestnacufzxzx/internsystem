@@ -3,7 +3,10 @@
     <div class="col-md-10">
       <br>
       <h2 class="text-center">ข้อมูลการลงทะเบียน</h2>
+      <span>
+        {{startdatetime}}
 
+      </span>
       
       <!-- <form> -->
         <div class="row">
@@ -192,7 +195,7 @@
                     <p *ngIf="user.BIRTH_DATE"></p>
                     <!-- {{user.BIRTH_DATE| date: 'วัน dd '}} -->
                     <!-- {{user.BIRTH_DATE| date: 'เดือน MM'}} -->
-                    {{user.BIRTH_DATE | date:'dd/MM/yyyy'}}
+                    {{user.BIRTH_DATE}}
 
                   </td>
                   <td> <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;">

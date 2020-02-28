@@ -112,6 +112,7 @@ export class AdduserComponent implements OnInit {
   validate_LAST_NAME: string;
   validate_CITIZEN_IDMAX: string;
   validate_CITIZEN_IDMIN: string;
+  setdate:string;
   // num:number;
 
   constructor(private fb: FormBuilder,private dataService: DataserviceService,private router:Router) {}
@@ -152,8 +153,10 @@ export class AdduserComponent implements OnInit {
     this.Validators_BIRTH_DATE();
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
+    this.setdata_date(this.userAdd.BIRTH_DATE);
 
-    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.CITIZEN_ID != '' && this.userAdd.CITIZEN_ID != null && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BLOOD != undefined && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
+
+    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.CITIZEN_ID != '' && this.userAdd.CITIZEN_ID != null && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BIRTH_DATE != '' && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
       let createby = localStorage.getItem('role');
       this.userAdd.CREATE_BY = createby;
       this.dataService.adduser(this.userAdd)
@@ -171,6 +174,21 @@ export class AdduserComponent implements OnInit {
     }
    
   }
+
+  setdata_date(BIRTH_DATE){
+    let date = BIRTH_DATE;
+    var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+    this.userAdd.BIRTH_DATE =  year + "-" + month + "-" + day;
+  return  this.userAdd.BIRTH_DATE;
+  }
+
   Validators_CITIZEN_ID(){
     var num = new String(this.userAdd.CITIZEN_ID);
     // console.log(num)
