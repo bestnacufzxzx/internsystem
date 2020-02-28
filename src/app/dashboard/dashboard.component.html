@@ -56,7 +56,7 @@
           </div>
         </div>
       <div class="row">
-        <div class="form-group hidden">
+        <!-- <div class="form-group hidden">
           <div class="input-group">
             <input type="hidden" name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
               [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
@@ -69,35 +69,61 @@
               </span>
             </ng-template>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-4">
           <div class="form-group">
             <label for="formGroupExampleInput">วันเกิด จาก</label>
-            <div class="input-group">
-              <input #dpFromDate class="form-control"  placeholder="dd-mm-yyyy" [value]="(fromDatetotal)"
-                (input)="fromDatetotal = validateInput(fromDatetotal, dpFromDate.value)">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+              <div class="input-group">
+                  <input matInput [min]="picker1" [max]="picker" [matDatepicker]="picker" placeholder="ว/ด/ป" [(ngModel)]="search.dpFromDate" class="form-control input-sm" />
+                  <div class="input-group-append">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker touchUi #picker></mat-datepicker>
+                  </div>
               </div>
-            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="formGroupExampleInput">ถึง</label>
+              <div class="input-group">
+                <input matInput [min]="picker" [max]="picker1" [matDatepicker]="picker1" placeholder="ว/ด/ป" [(ngModel)]="search.dpToDate" class="form-control input-sm" />
+                <div class="input-group-append">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker1></mat-datepicker>
+                </div>
+              </div>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="form-group">
-            <label for="formGroupExampleInput">ถึง</label>
-            <div class="input-group">
-              <input #dpToDate class="form-control"  placeholder="dd-mm-yyyy" 
-                [value]="toDatetotal" (input)="toDatetotal = validateInput(toDatetotal, dpToDate.value)">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+            <label for="formGroupExampleInput">แล้ว</label>
+              <div class="input-group">
+                <!-- <mat-form-field>
+                  <mat-label>Verbose datepicker</mat-label>
+                  <input matInput [matDatepicker]="dp" [formControl]="date">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                </mat-form-field> -->
+                <input matInput [matDatepicker]="dp" [formControl]="date">
+
+                <!-- <input matInput [min]="picker" [max]="picker2" [matDatepicker]="picker2" placeholder="ว/ด/ป" [(ngModel)]="testdate_day" class="form-control input-sm" /> -->
+                <div class="input-group-append">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker2></mat-datepicker> -->
+                </div>
               </div>
-            </div>
           </div>
         </div>
-        <!-- {{search.toDate | json}} -->
+        {{testdate_day | date: 'dd/MM/yyyy'}}
 
-        <!-- {{search.fromDate | json}} -->
+        {{search.dpFromDate}}
+        {{search.dpToDate}}
+        {{search.fromDate}}
         <div class="col-md-4">
           <!-- <div class="form-group">
             <label for="formGroupExampleInput">จำนวนรายการ/หน้า</label>

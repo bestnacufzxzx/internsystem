@@ -16,6 +16,8 @@ export class Usermodule {
     CREATE_BY:string;
     fromDate:NgbDate;
     toDate:NgbDate;
+    dpFromDate: any;
+    dpToDate: any;
     // static CREATE_BY: string;
   
 

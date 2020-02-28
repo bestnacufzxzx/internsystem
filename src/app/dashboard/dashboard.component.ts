@@ -40,10 +40,8 @@ export class DashboardComponent implements OnInit {
   FIRST_NAME :any;
   LAST_NAME :any;
   BIRTH_DATE :any;
-  dpFromDate :string;
-  dpToDate :string;
-  //
-  // startdatetime:any;
+  dpFromDate :any;
+  dpToDate :any;
   
 
   blood = [
@@ -69,61 +67,11 @@ export class DashboardComponent implements OnInit {
     {id: 2, name: 'นาง'},
     {id: 3, name: 'นางสาว'}
   ];
-  // this.dateAdapter.setLocale('th-TH');
-  
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-    this.fromDate = undefined;
-    this.toDate = undefined;
-    this.form = this.fb.group({checkArray: this.fb.array([],[])});
   }
    
   
-  
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.sum_day = date.day;
-      this.sum_month = date.month;
-      this.sum_year = date.year + 543;
-      
-      this.fromDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.sum_day = date.day;
-      this.sum_month = date.month;
-      this.sum_year = date.year + 543;
-
-      this.toDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
-      this.toDate = date;
-
-    } else {
-      this.sum_day = date.day;
-      this.sum_month = date.month;
-      this.sum_year = date.year + 543;
-      
-
-      this.toDate = null;
-      this.toDatetotal = null;
-      this.fromDate = date;
-      this.fromDatetotal = this.sum_day + "-" + this.sum_month  + "-" + this.sum_year ;
-
-    }
-    console.log("testest : "+this.fromDatetotal+"+++++++"+this.toDatetotal+"-----"+date)
-
-  }
-
-  isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  }
-
-  isInside(date: NgbDate) {
-    return date.after(this.fromDate) && date.before(this.toDate);
-  }
-
-  isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
-  }
-
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -135,11 +83,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.search = new Usermodule();
     this.getuserdetails();
-    // this.dtOptions['search']=false;
-    // CITIZEN_ID = this.search.TITLE ;
     this.clear();
     this.submitForm();
   }
+
+
 
   clear(){
     this.search.CITIZEN_ID = undefined;
@@ -148,26 +96,13 @@ export class DashboardComponent implements OnInit {
     this.search.SEX=undefined;
     this.search.BLOOD=undefined;
     this.search.TITLE=undefined;
-    this.fromDatetotal ='';
-    this.toDatetotal ='';
     }
   btn_submit(){
     this.getseacrh()
-    // console.log(this.search.CITIZEN_ID);
-    // console.log(this.search.BLOOD);
-    // console.log(this.search.SEX);
-    // console.log(this.search.TITLE);
-    // console.log(this.search.FIRST_NAME);
-    // console.log(this.search.LAST_NAME);
-    // console.log(this.search.BLOOD);
-    // console.log(this.search.BIRTH_DATE);
-    // console.log(this.search.dpFromDate);
-    // console.log(this.search.dpToDate);
   }
 
   getuserdetails()
   {
-    // this.dataService.getAllUsers(CITIZEN_ID)
     this.dataService.getAllUsers()
     .subscribe( data => {
     this.userdet = data;
@@ -177,6 +112,8 @@ export class DashboardComponent implements OnInit {
 
   getseacrh()
   {
+    this.chack_time();
+
     this.CITIZEN_ID = this.search.CITIZEN_ID;
     this.SEX = this.search.SEX;
     this.TITLE = this.search.TITLE;
@@ -184,22 +121,69 @@ export class DashboardComponent implements OnInit {
     this.LAST_NAME = this.search.LAST_NAME;
     this.BLOOD = this.search.BLOOD;
     this.BIRTH_DATE = this.search.BIRTH_DATE;
+    this.dpFromDate = this.search.dpFromDate;
+    this.dpToDate = this.search.dpToDate;
+
     
-    if(this.fromDate == null || this.fromDate == undefined){
+    if(this.dpFromDate == null || this.dpFromDate == undefined){
       this.dpFromDate = undefined;
       this.dpToDate = undefined;
     }else{
-      this.dpFromDate = this.fromDate.year.toString() + "-" + this.fromDate.month.toString() + "-" + this.fromDate.day.toString();
-      this.dpToDate = this.toDate.year.toString() + "-" + this.toDate.month.toString() + "-" + this.toDate.day.toString();
+     this.chack_fromDate(this.dpFromDate);
+     this.chack_dptoDate(this.dpToDate);
     }
     console.log(this.dpFromDate, "", this.dpToDate);
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
     .subscribe( data => {
     this.userdet = data;
-     console.log('test search :',this.userdet);
     });
   }
+
+  chack_fromDate(dpFromDate){
+      let date = dpFromDate;
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
+        month = '0' + month;
+      if (day.length < 2) 
+        day = '0' + day;
+      if(month <= '10'){}
+      this.dpFromDate =  year + "-" + month + "-" + day;
+     console.log('dpFromDate :',dpFromDate);
+    return  dpFromDate;
+    
+  }
+  chack_dptoDate(dpToDate){
+    let date = dpToDate;
+    var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+    this.dpToDate =  year + "-" + month + "-" + day;
+   console.log('dpToDate :',dpToDate);
+  return  dpToDate;
+  }
   
+  chack_time(){
+    var test = '';
+    var startDate = this.search.dpFromDate.valueOf();
+    var endDate = this.search.dpToDate.valueOf()
+    var milisecondsDiff = endDate - startDate;
+    // console.log(Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) 
+    test = Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2})
+    return this.test(test);
+    
+  }
+
+  test(test:any){
+    console.log(test);
+  }
 
   onCheckboxChange(e) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
@@ -223,8 +207,6 @@ export class DashboardComponent implements OnInit {
         i++;
       });
     }
-
-
   }
   submitForm() {
     let sum = ''
