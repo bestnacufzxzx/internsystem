@@ -67,23 +67,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="formGroupExampleInput">วันเกิด</label>
-                                <mat-form-field class="form-control input-sm">
-                                    <mat-label>Choose a date</mat-label>
-                                    <input matInput [matDatepicker]="picker" [(ngModel)]="userAdd.BIRTH_DATE">
+                            <div class="input-group">
+                                <input matInput [matDatepicker]="picker" placeholder="ว/ด/ป" [(ngModel)]="userAdd.BIRTH_DATE" class="form-control input-sm" >
+                                <div class="input-group-append">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker touchUi #picker></mat-datepicker>
-                                </mat-form-field>
-                            <!-- <mat-form-field> -->
-                                <!-- <input class="form-control input-sm"  matInput [matDatepicker]="myDatepicker" [(ngModel)]="userAdd.BIRTH_DATE"> -->
-                                <!-- <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-                                <mat-datepicker #myDatepicker></mat-datepicker> -->
-                              <!-- </mat-form-field> -->
-                            <!-- <div class="input-group">
-                                <input class="form-control input-sm" [(ngModel)]="userAdd.BIRTH_DATE" autocomplete="off" placeholder="dd/mm/yyyy"   id="birthdate" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" [ngClass]="{ 'is-invalid': submitted && f.birthdate.errors }"/>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button"></button>
                                 </div>
-                            </div> -->
+                            </div>
                             <div *ngIf="validate_BIRTH_DATE == '0'"><h6>กรุณาเลือกวันเกิด</h6></div>
                         </div>
                     </div>

@@ -12,68 +12,12 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 
 
-@Injectable()
-export class CustomAdapter extends NgbDateAdapter<string> {
 
-  readonly DELIMITER = '-';
-
-
-  fromModel(value: string): NgbDateStruct {
-    let result: NgbDateStruct = null;
-    if (value) {
-      let date = value.split(this.DELIMITER);
-      result = {
-        year : parseInt(date[0], 10),
-        day : parseInt(date[2], 10),
-        month : parseInt(date[1], 10)
-      };
-    }
-    return result;
-  }
-
-  toModel(date: NgbDateStruct): string {
-    let result: string = null;
-    if (date) {
-      result = date.year + "-" + date.month + "-" + date.day;
-    }
-    return result;
-  }
-}
-
-@Injectable()
-export class CustomDateParserFormatter extends NgbDateParserFormatter {
-
-  readonly DELIMITER = '/';
-
-  parse(value: string): NgbDateStruct {
-    let result: NgbDateStruct = null;
-    if (value) {
-      let date = value.split(this.DELIMITER);
-      result = {
-        day : parseInt(date[0], 10),
-        month : parseInt(date[1], 10),
-        year : parseInt(date[2], 10)
-      };
-    }
-    return result;
-  }
-
-  format(date: NgbDateStruct): string {
-    let result: string = null;
-    if (date) {
-      result = date.day + this.DELIMITER + date.month + this.DELIMITER + date.year;
-    }
-    return result;
-  }
-}
 @Component({
   selector: 'app-adduser',
   templateUrl: './adduser.component.html',
   styleUrls: ['./adduser.component.css'],
-  providers: [
-    {provide: NgbDateAdapter, useClass: CustomAdapter},
-    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
-  ]
+  providers: []
 })
 export class AdduserComponent implements OnInit {
 

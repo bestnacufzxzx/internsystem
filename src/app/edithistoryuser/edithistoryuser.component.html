@@ -79,9 +79,10 @@
                         <div class="form-group">
                             <label for="formGroupExampleInput">วันเกิด</label>
                             <div class="input-group">
-                                <input class="form-control input-sm" [(ngModel)]="userEd.BIRTH_DATE" autocomplete="off" placeholder="dd/mm/yyyy"   id="birthdate" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker" [ngClass]="{ 'is-invalid': submitted && f.birthdate.errors }"/>
+                                <input matInput [matDatepicker]="picker" placeholder="ว/ด/ป" [(ngModel)]="userEd.BIRTH_DATE" class="form-control input-sm" >
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" (click)="d2.toggle()" type="button"></button>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker></mat-datepicker>
                                 </div>
                             </div>
                             <div *ngIf="validate_BIRTH_DATE == '0'"><h6>กรุณาเลือกวันเกิด</h6></div>
