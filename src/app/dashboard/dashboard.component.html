@@ -101,25 +101,15 @@
           <div class="form-group">
             <label for="formGroupExampleInput">แล้ว</label>
               <div class="input-group">
-                <!-- <mat-form-field>
-                  <mat-label>Verbose datepicker</mat-label>
-                  <input matInput [matDatepicker]="dp" [formControl]="date">
-                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                  <mat-datepicker #dp></mat-datepicker>
-                </mat-form-field> -->
-                <input matInput [matDatepicker]="dp" [formControl]="date">
-
-                <!-- <input matInput [min]="picker" [max]="picker2" [matDatepicker]="picker2" placeholder="ว/ด/ป" [(ngModel)]="testdate_day" class="form-control input-sm" /> -->
-                <div class="input-group-append">
-                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                  <mat-datepicker #dp></mat-datepicker>
-                    <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker touchUi #picker2></mat-datepicker> -->
-                </div>
+              <input matInput [min]="picker" [max]="picker3" [matDatepicker]="picker3" placeholder="ว/ด/ป" [(ngModel)]="testdate_day" class="form-control input-sm" />
+              <div class="input-group-append">
+                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #picker3></mat-datepicker>
               </div>
+            </div>
           </div>
         </div>
-        {{testdate_day | date: 'dd/MM/yyyy'}}
+        {{testdate_day | date}}
 
         {{search.dpFromDate}}
         {{search.dpToDate}}

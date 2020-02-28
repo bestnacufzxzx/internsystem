@@ -6,7 +6,6 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-b
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -177,8 +176,14 @@ export class DashboardComponent implements OnInit {
     var milisecondsDiff = endDate - startDate;
     // console.log(Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) 
     test = Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2})
-    return this.test(test);
+    return this.test(test),this.varidate_datepiker(test);
     
+  }
+  varidate_datepiker(test){
+    if(test ){
+      
+    }
+
   }
 
   test(test:any){
