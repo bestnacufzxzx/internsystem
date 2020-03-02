@@ -98,9 +98,8 @@ export class AdduserComponent implements OnInit {
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
     this.setdata_date(this.userAdd.BIRTH_DATE);
-
-
-    if(this.userAdd.CITIZEN_ID != undefined && this.userAdd.CITIZEN_ID != '' && this.userAdd.CITIZEN_ID != null && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BIRTH_DATE != '' && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
+    var ID_card = this.Validate_IDCrad(this.userAdd.CITIZEN_ID);
+    if(ID_card == true && this.userAdd.CITIZEN_ID != undefined && this.userAdd.CITIZEN_ID != '' && this.userAdd.CITIZEN_ID != null && this.userAdd.TITLE != undefined && this.userAdd.SEX != undefined && this.userAdd.BIRTH_DATE != '' && this.userAdd.BIRTH_DATE != undefined && this.userAdd.FIRST_NAME != undefined && this.userAdd.LAST_NAME !=undefined){
       let createby = localStorage.getItem('role');
       this.userAdd.CREATE_BY = createby;
       this.dataService.adduser(this.userAdd)
@@ -117,6 +116,37 @@ export class AdduserComponent implements OnInit {
           });
     }
    
+  }
+
+  Validate_IDCrad(p_iPID) {
+    var total = 0;
+    var iPID;
+    var chk;
+    let Validchk;
+    iPID = p_iPID.replace(/-/g, "");
+    Validchk = iPID.substr(12, 1);
+    var j = 0;
+    var pidcut;
+    for (var n = 0; n < 12; n++) {
+        pidcut = parseInt(iPID.substr(j, 1));
+        total = (total + ((pidcut) * (13 - n)));
+        j++;
+    }
+
+    chk = 11 - (total % 11);
+
+    if (chk == 10) {
+        chk = 0;
+    } else if (chk == 11) {
+        chk = 1;
+    }
+    if (chk == Validchk) {
+        alert("ระบุหมายเลขประจำตัวประชาชนถูกต้อง");
+        return true;
+    } else {
+        alert("ระบุหมายเลขประจำตัวประชาชนไม่ถูกต้อง");
+        return false;
+    }
   }
 
   setdata_date(BIRTH_DATE){
