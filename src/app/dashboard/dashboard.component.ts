@@ -6,6 +6,7 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-b
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -41,7 +42,7 @@ export class DashboardComponent implements OnInit {
   BIRTH_DATE :any;
   dpFromDate :any;
   dpToDate :any;
-  
+  testdate_day:any;
 
   blood = [
     {id: 1, name: 'เอ'},
@@ -86,16 +87,35 @@ export class DashboardComponent implements OnInit {
     this.submitForm();
   }
 
+  // converd_date(testdate_day){
+    
+  //   let date = testdate_day;
+  //   var d = new Date(date),
+  //   month = '' + (d.getMonth() + 1),
+  //   day = '' + d.getDate(),
+  //   year = d.getFullYear() + 543;
+  //   if (month.length < 2) 
+  //     month = '0' + month;
+  //   if (day.length < 2) 
+  //     day = '0' + day;
+  //   testdate_day =   day+ "/" + month + "/" + year;
+  //  console.log('testdate_day :',testdate_day);
+  // return  testdate_day;
+  // }
+
 
 
   clear(){
     this.search.CITIZEN_ID = undefined;
-    this.search.FIRST_NAME=undefined;
-    this.search.LAST_NAME=undefined;
-    this.search.SEX=undefined;
-    this.search.BLOOD=undefined;
-    this.search.TITLE=undefined;
-    }
+    this.search.FIRST_NAME = undefined;
+    this.search.LAST_NAME = undefined;
+    this.search.SEX = undefined;
+    this.search.BLOOD = undefined;
+    this.search.TITLE = undefined;
+    this.search.dpFromDate = undefined;
+    this.search.dpToDate = undefined;
+  }
+
   btn_submit(){
     this.getseacrh()
   }
@@ -111,7 +131,7 @@ export class DashboardComponent implements OnInit {
 
   getseacrh()
   {
-    this.chack_time();
+    // this.chack_time();
 
     this.CITIZEN_ID = this.search.CITIZEN_ID;
     this.SEX = this.search.SEX;
@@ -123,15 +143,27 @@ export class DashboardComponent implements OnInit {
     this.dpFromDate = this.search.dpFromDate;
     this.dpToDate = this.search.dpToDate;
 
+
+    console.log(
+      // this.CITIZEN_ID , "CITIZEN_ID" ,
+      // this.SEX + "SEX" +
+    //   this.TITLE + "TITLE" +
+    //   this.FIRST_NAME + "FIRST_NAME" +
+    //   this.LAST_NAME + "LAST_NAME" +
+      // this.BLOOD + "BLOOD" +
+    //   this.BIRTH_DATE + "BIRTH_DATE" +
+      // this.dpFromDate + "dpFromDate" +
+      // this.dpToDate + "dpToDate" 
+    )
     
-    if(this.dpFromDate == null || this.dpFromDate == undefined){
-      this.dpFromDate = undefined;
-      this.dpToDate = undefined;
-    }else{
-     this.chack_fromDate(this.dpFromDate);
-     this.chack_dptoDate(this.dpToDate);
-    }
-    console.log(this.dpFromDate, "", this.dpToDate);
+    // if(this.dpFromDate == null || this.dpFromDate == undefined){
+    //   this.dpFromDate = undefined;
+    //   this.dpToDate = undefined;
+    // }else{
+    //  this.chack_fromDate(this.dpFromDate);
+    //  this.chack_dptoDate(this.dpToDate);
+    // }
+    // console.log(this.dpFromDate, "", this.dpToDate);
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
     .subscribe( data => {
     this.userdet = data;
@@ -169,22 +201,22 @@ export class DashboardComponent implements OnInit {
   return  dpToDate;
   }
   
-  chack_time(){
-    var test = '';
-    var startDate = this.search.dpFromDate.valueOf();
-    var endDate = this.search.dpToDate.valueOf()
-    var milisecondsDiff = endDate - startDate;
-    // console.log(Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) 
-    test = Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2})
-    return this.test(test),this.varidate_datepiker(test);
+  // chack_time(){
+  //   var test = '';
+  //   var startDate = this.search.dpFromDate.valueOf();
+  //   var endDate = this.search.dpToDate.valueOf()
+  //   var milisecondsDiff = endDate - startDate;
+  //   // console.log(Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2}) + ":" + (Math.floor(milisecondsDiff/(1000*60))%60).toLocaleString(undefined, {minimumIntegerDigits: 2})  + ":" + (Math.floor(milisecondsDiff/1000)%60).toLocaleString(undefined, {minimumIntegerDigits: 2}) 
+  //   test = Math.floor(milisecondsDiff/(1000*60*60)).toLocaleString(undefined, {minimumIntegerDigits: 2})
+  //   return this.test(test),this.varidate_datepiker(test);
     
-  }
-  varidate_datepiker(test){
-    if(test ){
+  // }
+  // varidate_datepiker(test){
+  //   if(test ){
       
-    }
+  //   }
 
-  }
+  // }
 
   test(test:any){
     console.log(test);

@@ -21,6 +21,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+
+
 //
 import {A11yModule} from '@angular/cdk/a11y';
 // import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -65,6 +69,31 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 //
+
+//
+// import {
+//   DateAdapter,
+//   MAT_DATE_FORMATS,
+//   MAT_DATE_LOCALE
+// } from '@angular/material';
+// import {
+//   MomentDateModule,
+//   MomentDateAdapter
+// } from '@angular/material-moment-adapter';
+//
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
  
 @NgModule({
   declarations: [
@@ -134,7 +163,12 @@ import {MatTreeModule} from '@angular/material/tree';
     ScrollingModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "th-TH" } 
+    // { provide: LOCALE_ID, useValue: "th-TH" } ,
+    // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'th-TH', },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
   ],
   bootstrap: [AppComponent],
 })

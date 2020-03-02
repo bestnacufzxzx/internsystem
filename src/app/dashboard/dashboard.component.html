@@ -97,19 +97,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">แล้ว</label>
-              <div class="input-group">
-              <input [matDatepicker]="picker3" placeholder="ว/ด/ป" [(ngModel)]="testdate_day" class="form-control input-sm" />
-              <div class="input-group-append">
-                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                  <mat-datepicker touchUi #picker3></mat-datepicker>
-              </div>
-            </div>
-          </div>
-        </div>
-        {{this.converd_date(testdate_day)}}
+        <!-- {{this.converd_date(testdate_day)}} -->
 
         {{search.dpFromDate}}
         {{search.dpToDate}}
@@ -211,7 +199,7 @@
                     <p *ngIf="user.BIRTH_DATE"></p>
                     <!-- {{user.BIRTH_DATE| date: 'วัน dd '}} -->
                     <!-- {{user.BIRTH_DATE| date: 'เดือน MM'}} -->
-                    {{user.BIRTH_DATE}}
+                    {{user.BIRTH_DATE | date: 'dd'}}
 
                   </td>
                   <td> <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;">

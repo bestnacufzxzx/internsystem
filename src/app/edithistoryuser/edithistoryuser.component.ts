@@ -17,7 +17,11 @@ import {
   styleUrls: ['./edithistoryuser.component.css'],
   providers: []
 })
+
+
 export class EdithistoryuserComponent implements OnInit {
+
+  
 
   submitted = false;
   userEd : Usermodule;
@@ -31,6 +35,9 @@ export class EdithistoryuserComponent implements OnInit {
   validate_LAST_NAME: string;
   validate_CITIZEN_IDMIN: string;
   validate_CITIZEN_IDMAX: string;
+
+
+
 
   constructor(private fb: FormBuilder,private dataService: DataserviceService,private router:Router) {}
   onReset() {
@@ -59,11 +66,7 @@ export class EdithistoryuserComponent implements OnInit {
     }
     return true;
   }
-  postdata()
-  {
-    let num = new String(this.userEd.CITIZEN_ID);
-
-    
+  chack_befor_validate(){
     this.Validators_CITIZEN_ID();
     this.Validators_TITLE();
     this.Validators_BLOOD();
@@ -71,6 +74,11 @@ export class EdithistoryuserComponent implements OnInit {
     this.Validators_BIRTH_DATE();
     this.Validators_FIRST_NAME();
     this.Validators_LAST_NAME();
+  }
+  postdata()
+  {
+    this.chack_befor_validate();
+    let num = new String(this.userEd.CITIZEN_ID);
     var ID_card = this.Validate_IDCrad(this.userEd.CITIZEN_ID);
     if( ID_card == true && num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
       let updateby = localStorage.getItem('role');
@@ -127,17 +135,16 @@ export class EdithistoryuserComponent implements OnInit {
     if(this.userEd.CITIZEN_ID == undefined || this.userEd.CITIZEN_ID == '' || this.userEd.CITIZEN_ID == null){
       this.validate_CITIZEN_ID = '0';
       console.log("CITIZEN_ID",this.validate_CITIZEN_ID);
-    }
-    else{
-      this.validate_CITIZEN_ID = '1';
-    }
-    if(num.length < 12 && num != '' && num.length != 9){
+    }else if(num.length < 12 && num != '' && num.length != 9){
       this.validate_CITIZEN_IDMIN = '2';
       console.log(num.length,this.validate_CITIZEN_IDMIN);
-    }else if(num.length >= 14){
+    }else if(num.length > 13){
       this.validate_CITIZEN_IDMAX = '3';
       console.log(num.length,this.validate_CITIZEN_IDMAX);
+    }else{
+      this.validate_CITIZEN_ID = '1';
     }
+    
   }
   Validators_SEX(){
     if(this.userEd.SEX == undefined){
