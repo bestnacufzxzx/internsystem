@@ -52,6 +52,16 @@ export class EdithistoryuserComponent implements OnInit {
       });
   }
 
+  reduc(){
+    this.Validators_CITIZEN_ID();
+    this.Validators_TITLE();
+    this.Validators_BLOOD();
+    this.Validators_SEX();
+    this.Validators_BIRTH_DATE();
+    this.Validators_FIRST_NAME();
+    this.Validators_LAST_NAME();
+  }
+
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode !== 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -64,15 +74,9 @@ export class EdithistoryuserComponent implements OnInit {
     let num = new String(this.userEd.CITIZEN_ID);
 
     
-    this.Validators_CITIZEN_ID();
-    this.Validators_TITLE();
-    this.Validators_BLOOD();
-    this.Validators_SEX();
-    this.Validators_BIRTH_DATE();
-    this.Validators_FIRST_NAME();
-    this.Validators_LAST_NAME();
-    
-    if( num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
+
+    var ID_card = this.Validate_IDCrad(this.userEd.CITIZEN_ID);
+    if( ID_card == true && num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
       let updateby = localStorage.getItem('role');
       this.userEd.USER_NAME = updateby;
       this.dataService.edithistoryuser(this.userEd)
@@ -91,6 +95,36 @@ export class EdithistoryuserComponent implements OnInit {
     }
   }
 
+  Validate_IDCrad(p_iPID) {
+    var total = 0;
+    var iPID;
+    var chk;
+    let Validchk;
+    iPID = p_iPID.replace(/-/g, "");
+    Validchk = iPID.substr(12, 1);
+    var j = 0;
+    var pidcut;
+    for (var n = 0; n < 12; n++) {
+        pidcut = parseInt(iPID.substr(j, 1));
+        total = (total + ((pidcut) * (13 - n)));
+        j++;
+    }
+
+    chk = 11 - (total % 11);
+
+    if (chk == 10) {
+        chk = 0;
+    } else if (chk == 11) {
+        chk = 1;
+    }
+    if (chk == Validchk) {
+        alert("ระบุหมายเลขประจำตัวประชาชนถูกต้อง");
+        return true;
+    } else {
+        alert("ระบุหมายเลขประจำตัวประชาชนไม่ถูกต้อง");
+        return false;
+    }
+  }
   Validators_CITIZEN_ID(){
     let num = new String(this.userEd.CITIZEN_ID);
     // console.log(num)
