@@ -68,6 +68,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+
+import { MomentDateAdapter2, MOMENT_DATE_FORMATS } from '../assets/moment-date-adapter2';
 //
 
 //
@@ -165,10 +167,13 @@ export const MY_FORMATS = {
   providers: [
     // { provide: LOCALE_ID, useValue: "th-TH" } ,
     // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'th-TH', },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    // { provide: MAT_DATE_LOCALE, useValue: 'th-TH', },
+    // { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    // { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_LOCALE, useValue: 'th-TH' },
+    { provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS },
+    { provide: DateAdapter, useClass: MomentDateAdapter2 },
   ],
   bootstrap: [AppComponent],
 })

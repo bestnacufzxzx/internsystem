@@ -80,14 +80,15 @@ export class EdithistoryuserComponent implements OnInit {
     this.chack_befor_validate();
     let num = new String(this.userEd.CITIZEN_ID);
     var ID_card = this.Validate_IDCrad(this.userEd.CITIZEN_ID);
-    if( ID_card == true && num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.userEd.BIRTH_DATE != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
+    console.log(this.chack_BIRTH_Date(this.userEd.BIRTH_DATE))
+    if( ID_card == true && num.length == 13 && this.userEd.CITIZEN_ID != undefined && this.userEd.CITIZEN_ID != null && this.userEd.CITIZEN_ID != '' && this.userEd.TITLE != undefined && this.userEd.SEX != undefined && this.userEd.BLOOD != undefined && this.chack_BIRTH_Date(this.userEd.BIRTH_DATE) != undefined && this.userEd.FIRST_NAME != undefined && this.userEd.LAST_NAME !=undefined){
       let updateby = localStorage.getItem('role');
       this.userEd.USER_NAME = updateby;
       this.dataService.edithistoryuser(this.userEd)
       .pipe(first())
       .subscribe(
           data => {
-            this.router.navigate(['dashboard']); 
+            // this.router.navigate(['dashboard']); 
             alert("บันทึกสำเร็จ");
   
           },
@@ -97,6 +98,22 @@ export class EdithistoryuserComponent implements OnInit {
   
           });
     }
+  }
+
+  chack_BIRTH_Date(BIRTH){
+    let date = BIRTH;
+    var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+    this.userEd.BIRTH_DATE = ''
+    this.userEd.BIRTH_DATE =  year + "-" + month + "-" + day;
+   console.log('BIRTH :',BIRTH);
+  return  BIRTH;
   }
 
   Validate_IDCrad(p_iPID) {

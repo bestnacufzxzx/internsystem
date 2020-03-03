@@ -65,3 +65,11 @@
 .custom-day.faded {
   background-color: rgba(2, 117, 216, 0.5);
 }
+
+.no-data-available {
+  text-align: center;
+}
+
+.dataTables_empty {
+  display: none;
+}
