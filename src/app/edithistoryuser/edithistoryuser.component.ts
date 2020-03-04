@@ -88,7 +88,7 @@ export class EdithistoryuserComponent implements OnInit {
       .pipe(first())
       .subscribe(
           data => {
-            // this.router.navigate(['dashboard']); 
+            this.router.navigate(['dashboard']); 
             alert("บันทึกสำเร็จ");
   
           },

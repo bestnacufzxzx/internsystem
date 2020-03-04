@@ -132,6 +132,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
   
   ngOnInit() {
+    
     this.search = new Usermodule();
     // this.getuserdetails();
     // this.dtOptions['search']=false;
@@ -198,7 +199,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
     .map(this.extractData)
     .subscribe( data => {
     this.userdet = data;
-    this.dtTrigger.next();
+    this.dtTrigger.next(this.clear);
     console.log('test search :',this.userdet);
     console.log('test dtTrigger :',this.dtTrigger.next());
 
@@ -274,6 +275,9 @@ export class DashboardComponent implements OnDestroy, OnInit {
   deleteuserdetails(ID)
   {
     this.dataService.removeEmployee(ID).subscribe()
+    alert("ลบข้อมูลสำเร็จ")
+    // this.router.navigate(['dashboard']); 
+    window.location.reload();
   }
 
   updatehistoryUser(user: Usermodule): void {
