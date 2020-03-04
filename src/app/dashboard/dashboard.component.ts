@@ -5,10 +5,8 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-b
 // import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-
-import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
-// import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +14,9 @@ import { Subject } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnDestroy, OnInit {
-  
+  // dtOptions: DataTables.Settings = {};
   dtOptions: Promise<DataTables.Settings>;
+  dtTrigger = new Subject();
   userdet: Usermodule;
   search: Usermodule;
   data:number;
@@ -46,7 +45,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
   dpFromDate :string;
   dpToDate :string;
   //
-  dtTrigger = new Subject();
   blood = [
     {id: 1, name: 'เอ'},
     {id: 2, name: 'บี'},
@@ -74,8 +72,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
   
 
   constructor(private fb: FormBuilder, private dataService: DataserviceService,private router:Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-    this.fromDate = undefined;
-    this.toDate = undefined;
+    // this.fromDate = undefined;
+    // this.toDate = undefined;
     this.form = this.fb.group({checkArray: this.fb.array([],[])});
   }
   
@@ -135,10 +133,9 @@ export class DashboardComponent implements OnDestroy, OnInit {
   
   ngOnInit() {
     this.search = new Usermodule();
-    this.getuserdetails();
+    // this.getuserdetails();
     // this.dtOptions['search']=false;
     // CITIZEN_ID = this.search.TITLE ;
-    this.clear();
     this.submitForm();
     this.getseacrh();
   }
@@ -167,8 +164,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
     // console.log(this.search.dpToDate);
   }
 
-  getuserdetails()
-  {
+  // getuserdetails()
+  // {
     // this.dataService.getAllUsers(CITIZEN_ID)
     // this.dataService.getAllUsers()
     // .subscribe( data => {
@@ -176,10 +173,9 @@ export class DashboardComponent implements OnDestroy, OnInit {
     // this.dtTrigger.next();
     // console.log('test userMo :',this.userdet);
     // });
-  }
+  // }
 
-  getseacrh()
-  {
+  getseacrh(){
     this.CITIZEN_ID = this.search.CITIZEN_ID;
     this.SEX = this.search.SEX;
     this.TITLE = this.search.TITLE;
@@ -199,10 +195,13 @@ export class DashboardComponent implements OnDestroy, OnInit {
     }
     console.log(this.dpFromDate, "", this.dpToDate);
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
+    .map(this.extractData)
     .subscribe( data => {
     this.userdet = data;
     this.dtTrigger.next();
     console.log('test search :',this.userdet);
+    console.log('test dtTrigger :',this.dtTrigger.next());
+
     });
   }
   
@@ -252,48 +251,48 @@ export class DashboardComponent implements OnDestroy, OnInit {
       day = '0' + day;
     if(month <= '10'){}
     this.dpFromDate =  year + "-" + month + "-" + day;
-   console.log('dpFromDate :',dpFromDate);
-  return  dpFromDate;
-  
-}
-chack_dptoDate(dpToDate){
-  let date = dpToDate;
-  var d = new Date(date),
-  month = '' + (d.getMonth() + 1),
-  day = '' + d.getDate(),
-  year = d.getFullYear();
-  if (month.length < 2) 
-    month = '0' + month;
-  if (day.length < 2) 
-    day = '0' + day;
-  this.dpToDate =  year + "-" + month + "-" + day;
- console.log('dpToDate :',dpToDate);
-return  dpToDate;
-} 
+    console.log('dpFromDate :',dpFromDate);
+    return  dpFromDate;
+    
+  }
+  chack_dptoDate(dpToDate){
+    let date = dpToDate;
+    var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+    this.dpToDate =  year + "-" + month + "-" + day;
+  console.log('dpToDate :',dpToDate);
+  return  dpToDate;
+  } 
 
 
-deleteuserdetails(ID)
-{
-  this.dataService.removeEmployee(ID).subscribe()
-}
+  deleteuserdetails(ID)
+  {
+    this.dataService.removeEmployee(ID).subscribe()
+  }
 
-updatehistoryUser(user: Usermodule): void {
-  window.localStorage.removeItem("editId");
-  window.localStorage.setItem("editId", user.ID.toString());
-  this.router.navigate(['edituser']);
-};
-addUser(): void {
-  this.router.navigate(['add']);
-};
+  updatehistoryUser(user: Usermodule): void {
+    window.localStorage.removeItem("editId");
+    window.localStorage.setItem("editId", user.ID.toString());
+    this.router.navigate(['edituser']);
+  };
+  addUser(): void {
+    this.router.navigate(['add']);
+  };
 
-ngOnDestroy(): void {
-  // Do not forget to unsubscribe the event
-  this.dtTrigger.unsubscribe();
-}
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
 
-private extractData(res: Response) {
-  const body = res.json();
-  return body.data || {};
-}
+  private extractData(res: any) {
+    // const body = res.json();
+    return res;
+  }
 
 }
