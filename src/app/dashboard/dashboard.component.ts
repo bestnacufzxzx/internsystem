@@ -1,4 +1,4 @@
-import { Component, OnInit,Injectable } from '@angular/core';
+import { Component, OnDestroy, OnInit,Injectable } from '@angular/core';
 import { DataserviceService } from '../dataservice.service';
 import { Usermodule } from '../usermodule';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
@@ -6,13 +6,16 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-b
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
+import { Http, Response } from '@angular/http';
+import { Subject } from 'rxjs';
+// import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnDestroy, OnInit {
   
   dtOptions: Promise<DataTables.Settings>;
   userdet: Usermodule;
@@ -43,8 +46,7 @@ export class DashboardComponent implements OnInit {
   dpFromDate :string;
   dpToDate :string;
   //
-  
-
+  dtTrigger = new Subject();
   blood = [
     {id: 1, name: 'เอ'},
     {id: 2, name: 'บี'},
@@ -138,6 +140,7 @@ export class DashboardComponent implements OnInit {
     // CITIZEN_ID = this.search.TITLE ;
     this.clear();
     this.submitForm();
+    this.getseacrh();
   }
 
   clear(){
@@ -167,11 +170,12 @@ export class DashboardComponent implements OnInit {
   getuserdetails()
   {
     // this.dataService.getAllUsers(CITIZEN_ID)
-    this.dataService.getAllUsers()
-    .subscribe( data => {
-    this.userdet = data;
-    console.log('test userMo :',this.userdet);
-    });
+    // this.dataService.getAllUsers()
+    // .subscribe( data => {
+    // this.userdet = data;
+    // this.dtTrigger.next();
+    // console.log('test userMo :',this.userdet);
+    // });
   }
 
   getseacrh()
@@ -197,6 +201,7 @@ export class DashboardComponent implements OnInit {
     this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
     .subscribe( data => {
     this.userdet = data;
+    this.dtTrigger.next();
     console.log('test search :',this.userdet);
     });
   }
@@ -280,4 +285,15 @@ updatehistoryUser(user: Usermodule): void {
 addUser(): void {
   this.router.navigate(['add']);
 };
+
+ngOnDestroy(): void {
+  // Do not forget to unsubscribe the event
+  this.dtTrigger.unsubscribe();
+}
+
+private extractData(res: Response) {
+  const body = res.json();
+  return body.data || {};
+}
+
 }
