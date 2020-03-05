@@ -6,115 +6,120 @@
 
       
       <!-- <form> -->
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput" (keypress)="numberOnly($event)" >เลขบัตรประชาชน</label>
-              <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="search.CITIZEN_ID" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
-            </div>
-  
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput">เพศ</label>
-              <ng-select [items]="sex" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="search.SEX"> </ng-select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput">หมู่โลหิต</label>
-              <ng-select [items]="blood" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.BLOOD"> </ng-select>
-            </div>
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput">คำนำหน้าชื่อ</label>
-              <ng-select [items]="title" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.TITLE"> </ng-select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput">ชื่อตัวไทย</label>
-              <input [(ngModel)]="search.FIRST_NAME" onkeyup="isThaichar(this.value,this)"
-                class="form-control input-sm" placeholder="ชื่อตัวไทย"
-                [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="formGroupExampleInput">ชื่อสกุลไทย</label>
-              <input [(ngModel)]="search.LAST_NAME" onkeyup="isThaichar(this.value,this)"
-                class="form-control input-sm" placeholder="ชื่อสกุลไทย"
-                [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
-            </div>
-          </div>
-        </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">วันเกิด จาก</label>
-              <div class="input-group">
-                  <input matInput [min]="picker1" [max]="picker" [matDatepicker]="picker" placeholder="ว/ด/ป" [(ngModel)]="search.dpFromDate" class="form-control input-sm" />
-                  <div class="input-group-append">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker touchUi #picker></mat-datepicker>
-                  </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput" (keypress)="numberOnly($event)" >เลขบัตรประชาชน</label>
+                  <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="search.CITIZEN_ID" name="txtID" class="form-control input-sm"  placeholder="เลขบัตรประชาชน" />
+                </div>
+      
               </div>
-          </div>
-        </div>
-
-        
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="formGroupExampleInput">ถึง</label>
-              <div class="input-group">
-                <input matInput [min]="picker" [max]="picker1" [matDatepicker]="picker1" placeholder="ว/ด/ป" [(ngModel)]="search.dpToDate" class="form-control input-sm" />
-                <div class="input-group-append">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker touchUi #picker1></mat-datepicker>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">เพศ</label>
+                  <ng-select [items]="sex" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="search.SEX"> </ng-select>
                 </div>
               </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="float-right">
-          </div>
-        </div>
-        <div class="col-md-5">
-          <div class="float-left">
-            <!-- onclick="myFunction(test)" -->
-            <button class="btn btn-outline-primary btn-block1" type="button" (click)="btn_submit()">ค้นหา</button>
-          </div>
-          <div class="float-right">
-            <button class="btn btn-outline-primary btn-block2"  type="submit" value="Submit" (click)="clear()"> ล้างข้อมูล </button>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="float-right">
-            <button class="btn btn-outline-primary btn-block3" (click)="addUser()">เพิ่มข้อมูลทะเบียน</button>
-          </div>
-        </div>
-      </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="float-right">
-              <p></p>
-              <button class="btn btn-outline-danger btn-block" (click)="submitForm()" type="submit" >ลบข้อมูล</button>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">หมู่โลหิต</label>
+                  <ng-select [items]="blood" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.BLOOD"> </ng-select>
+                </div>
+              </div>
+            </div>
+      
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">คำนำหน้าชื่อ</label>
+                  <ng-select [items]="title" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="search.TITLE"> </ng-select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">ชื่อตัวไทย</label>
+                  <input [(ngModel)]="search.FIRST_NAME" onkeyup="isThaichar(this.value,this)"
+                    class="form-control input-sm" placeholder="ชื่อตัวไทย"
+                    [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">ชื่อสกุลไทย</label>
+                  <input [(ngModel)]="search.LAST_NAME" onkeyup="isThaichar(this.value,this)"
+                    class="form-control input-sm" placeholder="ชื่อสกุลไทย"
+                    [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">วันเกิด จาก</label>
+                    <div class="input-group">
+                        <input matInput [min]="picker1" [max]="picker" [matDatepicker]="picker" placeholder="ว/ด/ป" [(ngModel)]="search.dpFromDate" class="form-control input-sm" />
+                        <div class="input-group-append">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+              </div>
+    
+              
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="formGroupExampleInput">ถึง</label>
+                    <div class="input-group">
+                      <input matInput [min]="picker" [max]="picker1" [matDatepicker]="picker1" placeholder="ว/ด/ป" [(ngModel)]="search.dpToDate" class="form-control input-sm" />
+                      <div class="input-group-append">
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker touchUi #picker1></mat-datepicker>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="float-right">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="float-left">
+                  <!-- onclick="myFunction(test)" -->
+                  <button class="btn btn-outline-primary btn-block1" type="button" (click)="btn_submit()">ค้นหา</button>
+                </div>
+                <div class="float-right">
+                  <button class="btn btn-outline-primary btn-block2"  type="submit" value="Submit" (click)="clear()"> ล้างข้อมูล </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="float-right">
+                  <button class="btn btn-outline-primary btn-block3" (click)="addUser()">เพิ่มข้อมูลทะเบียน</button>
+                </div>
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-md-12">
+                <div class="float-right">
+                  <p></p>
+                  <button class="btn btn-outline-danger btn-block" (click)="submitForm()" type="submit" >ลบข้อมูล</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        
         <br>
 
         <div class="row">
           <div class="col-md-12">
-            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" id="myTable">
+            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table-active" id="myTable">
               <thead>
                 <tr>
                   <th scope="col" sortable="ID"> ลำดับ </th>
@@ -182,6 +187,7 @@
                 </tr>
               <tbody>
             </table>
+            
           </div>
         </div>
     </div>
