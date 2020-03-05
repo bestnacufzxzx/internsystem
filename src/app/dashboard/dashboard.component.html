@@ -114,7 +114,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" id="myTable">
               <thead>
                 <tr>
                   <th scope="col" sortable="ID"> ลำดับ </th>
@@ -135,40 +135,45 @@
                   <th scope="col"> รายละเอียด </th>
                 </tr>
               </thead>
-              <tbody *ngIf="userdet?.length != 0">
+              <tbody>
                 <tr *ngFor="let user of userdet | filter:user; let i = index">
-                  <td>{{i+1}}</td>
+                  <td>
+                     {{i+1}} 
+                  </td>
+                  
                   <td>
                     <input type="checkbox" [value]="user.ID" (change)="onCheckboxChange($event) " />
                   </td>
-                  <td>{{user.CITIZEN_ID}}</td>
-                  <td>
-                    <p *ngIf="user.TITLE == 1">นาย</p>
-                    <p *ngIf="user.TITLE == 2">นาง</p>
-                    <p *ngIf="user.TITLE == 3">นางสาว</p>
-                  </td>
-                  <td>{{user.FIRST_NAME}}</td>
-                  <td>{{user.LAST_NAME}}</td>
-                  <td>
-                    <p *ngIf="user.SEX == 'M'">ชาย</p>
-                    <p *ngIf="user.SEX == 'F'">หญิง</p>
-                  </td>
-                  <td>
-                    <p *ngIf="user.BLOOD == 1">เอ</p>
-                    <p *ngIf="user.BLOOD == 2">บี</p>
-                    <p *ngIf="user.BLOOD == 3">เอบี</p>
-                    <p *ngIf="user.BLOOD == 4">โอ</p>
-                  </td>
-                  <td>
-                    <p *ngIf="user.BIRTH_DATE"></p>
-                    <!-- {{user.BIRTH_DATE| date: 'วัน dd '}} -->
-                    <!-- {{user.BIRTH_DATE| date: 'เดือน MM'}} -->
-                    {{user.BIRTH_DATE}}
 
+                  <td>
+                     {{user.CITIZEN_ID}} 
                   </td>
-                  <td> <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;">
-                      Edit</button></td>
 
+                  <td *ngIf="user.TITLE == 1">นาย </td>
+                  <td *ngIf="user.TITLE == 2">นาง </td>
+                  <td *ngIf="user.TITLE == 3">นางสาว </td>
+
+                  <td>
+                     {{user.FIRST_NAME}} 
+                  </td>
+                  
+                  <td>
+                     {{user.LAST_NAME}} 
+                  </td>
+
+                  <td *ngIf="user.SEX == 'M'">  ชาย </td>
+                  <td *ngIf="user.SEX == 'F'"> หญิง </td>
+                  
+                  <td *ngIf="user.BLOOD == 1">เอ </td>
+                  <td *ngIf="user.BLOOD == 2">บี </td>
+                  <td *ngIf="user.BLOOD == 3">เอบี </td>
+                  <td *ngIf="user.BLOOD == 4">โอ </td>
+                  
+                  <td>
+                     {{user.BIRTH_DATE}} 
+                  </td>
+                  <td> 
+                    <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;"> Edit </button></td>
                 </tr>
               </tbody>
               <tbody *ngIf="persons?.length == 0">
@@ -176,39 +181,6 @@
                   <td colspan="3" class="no-data-available">ไม่พบข้อมูล !!!</td>
                 </tr>
               <tbody>
-                <!-- <thead>
-              <tr>
-                <th scope="col" sortable="ID" > ลำดับ </th>
-                <th scope="col" sortable="DELETE" (sort)="onSort($event)" >  </th>
-                <th scope="col" sortable="CITIZEN_ID" (sort)="onSort($event)" > เลขที่บัตรประชาชน <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="TITLE" (sort)="onSort($event)" > คำนำหน้า <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="FIRST_NAME" (sort)="onSort($event)" > ชื่อตัวไทย <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="LAST_NAME" (sort)="onSort($event)" > ชื่อสกุลไทย <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="SEX" (sort)="onSort($event)" > เพศ <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="BLOOD" (sort)="onSort($event)" > หมู่โลหิต <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" sortable="BIRTH_DATE" (sort)="onSort($event)" > วันเกิด <i class="fa fa-fw fa-sort"></i> </th>
-                <th scope="col" > รายละเอียด  </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let user of users; let i = index">
-                <td>{{i+1}}</td>
-                <td>
-                  <div class="custom-control form-control-lg custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                      <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-                <td>{{user.CITIZEN_ID}}</td>
-                <td>{{user.TITLE}}</td>
-                <td>{{user.FIRST_NAME}}</td>
-                <td>{{user.LAST_NAME}}</td>
-                <td>{{user.SEX}}</td>
-                <td>{{user.BLOOD}}</td>
-                <td>{{user.BIRTH_DATE| date: 'dd/MM/yyyy'}}</td>
-                  <td>  <button class="btn btn-success" (click)="updatehistoryUser(user)" style="margin-left: 20px;"> Edit</button></td>
-              </tr>
-              </tbody> -->
             </table>
           </div>
         </div>
