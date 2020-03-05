@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit,Injectable } from '@angular/core';
+import { Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
 import { DataserviceService } from '../dataservice.service';
 import { Usermodule } from '../usermodule';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 // import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,9 +14,22 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnDestroy, OnInit {
+
+  searchObj = {
+    ConfigName: ""
+    , ConfigDetailName: ""
+    , Status: ""
+  };
   // dtOptions: DataTables.Settings = {};
-  dtOptions: Promise<DataTables.Settings>;
+  // dtOptions: Promise<DataTables.Settings>;
+  // dtTrigger = new Subject();
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
+
+
   userdet: Usermodule;
   search: Usermodule;
   data:number;
@@ -132,13 +145,17 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
   
   ngOnInit() {
-    
+    this.setdtOptions();
     this.search = new Usermodule();
-    // this.getuserdetails();
-    // this.dtOptions['search']=false;
-    // CITIZEN_ID = this.search.TITLE ;
     this.submitForm();
     this.getseacrh();
+  }
+
+  setdtOptions(){
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
   }
 
   clear(){
@@ -152,56 +169,34 @@ export class DashboardComponent implements OnDestroy, OnInit {
     this.search.dpToDate = undefined;
   }
   btn_submit(){
-    this.getseacrh()
-    // console.log(this.search.CITIZEN_ID);
-    // console.log(this.search.BLOOD);
-    // console.log(this.search.SEX);
-    // console.log(this.search.TITLE);
-    // console.log(this.search.FIRST_NAME);
-    // console.log(this.search.LAST_NAME);
-    // console.log(this.search.BLOOD);
-    // console.log(this.search.BIRTH_DATE);
-    // console.log(this.search.dpFromDate);
-    // console.log(this.search.dpToDate);
+    this.getSearchData()
   }
 
-  // getuserdetails()
-  // {
-    // this.dataService.getAllUsers(CITIZEN_ID)
-    // this.dataService.getAllUsers()
-    // .subscribe( data => {
-    // this.userdet = data;
-    // this.dtTrigger.next();
-    // console.log('test userMo :',this.userdet);
-    // });
-  // }
-
-  getseacrh(){
-    this.CITIZEN_ID = this.search.CITIZEN_ID;
-    this.SEX = this.search.SEX;
-    this.TITLE = this.search.TITLE;
-    this.FIRST_NAME = this.search.FIRST_NAME;
-    this.LAST_NAME = this.search.LAST_NAME;
-    this.BLOOD = this.search.BLOOD;
-    this.BIRTH_DATE = this.search.BIRTH_DATE;
-    this.dpFromDate = this.search.dpFromDate;
-    this.dpToDate = this.search.dpToDate;
-    
-    if(this.dpFromDate == null || this.dpFromDate == undefined){
-      this.dpFromDate = undefined;
-      this.dpToDate = undefined;
-    }else{
-     this.chack_fromDate(this.dpFromDate);
-     this.chack_dptoDate(this.dpToDate);
-    }
-    console.log(this.dpFromDate, "", this.dpToDate);
-    this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
-    .map(this.extractData)
-    .subscribe( data => {
-    this.userdet = data;
-    this.dtTrigger.next(this.clear);
-    console.log('test search :',this.userdet);
-    console.log('test dtTrigger :',this.dtTrigger.next());
+  async getseacrh(){
+      this.CITIZEN_ID = this.search.CITIZEN_ID;
+      this.SEX = this.search.SEX;
+      this.TITLE = this.search.TITLE;
+      this.FIRST_NAME = this.search.FIRST_NAME;
+      this.LAST_NAME = this.search.LAST_NAME;
+      this.BLOOD = this.search.BLOOD;
+      this.BIRTH_DATE = this.search.BIRTH_DATE;
+      this.dpFromDate = this.search.dpFromDate;
+      this.dpToDate = this.search.dpToDate;
+      
+      if(this.dpFromDate == null || this.dpFromDate == undefined){
+        this.dpFromDate = undefined;
+        this.dpToDate = undefined;
+      }else{
+      this.chack_fromDate(this.dpFromDate);
+      this.chack_dptoDate(this.dpToDate);
+      }
+      console.log(this.dpFromDate, "", this.dpToDate);
+      await  this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
+      .subscribe( data => {
+      this.userdet = data;
+      this.dtTrigger.next(this.clear);
+      // console.log('test search :',this.userdet);
+      // console.log('test dtTrigger :',this.dtTrigger.next());
 
     });
   }
@@ -297,6 +292,13 @@ export class DashboardComponent implements OnDestroy, OnInit {
   private extractData(res: any) {
     // const body = res.json();
     return res;
+  }
+
+  getSearchData(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.getseacrh();
+    });
   }
 
 }
