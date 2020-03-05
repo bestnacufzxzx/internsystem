@@ -159,14 +159,14 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   clear(){
-    this.search.CITIZEN_ID = undefined;
-    this.search.FIRST_NAME = undefined;
-    this.search.LAST_NAME = undefined;
-    this.search.SEX = undefined;
-    this.search.BLOOD = undefined;
-    this.search.TITLE = undefined;
-    this.search.dpFromDate = undefined;
-    this.search.dpToDate = undefined;
+    this.search.CITIZEN_ID = null;
+    this.search.FIRST_NAME = null;
+    this.search.LAST_NAME = null;
+    this.search.SEX = null;
+    this.search.BLOOD = null;
+    this.search.TITLE = null;
+    this.search.dpFromDate = null;
+    this.search.dpToDate = null;
   }
   btn_submit(){
     this.getSearchData()
@@ -183,15 +183,15 @@ export class DashboardComponent implements OnDestroy, OnInit {
       this.dpFromDate = this.search.dpFromDate;
       this.dpToDate = this.search.dpToDate;
       
-      if(this.dpFromDate == null || this.dpFromDate == undefined){
-        this.dpFromDate = undefined;
-        this.dpToDate = undefined;
+      if(this.dpFromDate == undefined || this.dpFromDate == undefined){
+        this.dpFromDate = null;
+        this.dpToDate = null;
       }else{
-      this.chack_fromDate(this.dpFromDate);
-      this.chack_dptoDate(this.dpToDate);
+        this.chack_fromDate(this.dpFromDate);
+        this.chack_dptoDate(this.dpToDate);
       }
       console.log(this.dpFromDate, "", this.dpToDate);
-      await  this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.BIRTH_DATE, this.dpFromDate, this.dpToDate)
+      await  this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.dpFromDate, this.dpToDate)
       .subscribe( data => {
       this.userdet = data;
       this.dtTrigger.next(this.clear);
@@ -236,34 +236,37 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   chack_fromDate(dpFromDate){
-    let date = dpFromDate;
-    var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-    if (month.length < 2) 
-      month = '0' + month;
-    if (day.length < 2) 
-      day = '0' + day;
-    if(month <= '10'){}
-    this.dpFromDate =  year + "-" + month + "-" + day;
-    console.log('dpFromDate :',dpFromDate);
-    return  dpFromDate;
-    
+    if (dpFromDate != null){
+      let date = dpFromDate;
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
+        month = '0' + month;
+      if (day.length < 2) 
+        day = '0' + day;
+      if(month <= '10'){}
+      this.dpFromDate =  year + "-" + month + "-" + day;
+      console.log('dpFromDate :',dpFromDate);
+      return  dpFromDate;
+    }
   }
   chack_dptoDate(dpToDate){
-    let date = dpToDate;
-    var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-    if (month.length < 2) 
+    if(dpToDate != null){
+      let date = dpToDate;
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
       month = '0' + month;
-    if (day.length < 2) 
+      if (day.length < 2) 
       day = '0' + day;
-    this.dpToDate =  year + "-" + month + "-" + day;
-  console.log('dpToDate :',dpToDate);
-  return  dpToDate;
+      this.dpToDate =  year + "-" + month + "-" + day;
+      console.log('dpToDate :',dpToDate);
+      return  dpToDate;
+    }
   } 
 
 

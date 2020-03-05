@@ -83,8 +83,17 @@ getAllUsers() : Observable<Usermodule > {
 }
 //
 // :string CITIZEN_ID:string SEX:string TITLE:string FIRST_NAME:string LAST_NAME:string BLOOD:string BIRTH_DATE:string dpFromDate:string dpToDate
-public getseacrh(CITIZEN_ID:string, SEX:string, TITLE:string, FIRST_NAME:string, LAST_NAME:string, BLOOD:string, BIRTH_DATE:string, dpFromDate:string, dpToDate:string) 
+public getseacrh(CITIZEN_ID:string, SEX:string, TITLE:string, FIRST_NAME:string, LAST_NAME:string, BLOOD:string, dpFromDate:string, dpToDate:string) 
   {
+  if(CITIZEN_ID == undefined){ CITIZEN_ID = null };
+  if(SEX == undefined){ SEX = null };
+  if(TITLE == undefined){ TITLE = null };
+  if(FIRST_NAME == undefined){ FIRST_NAME = null };
+  if(LAST_NAME == undefined){ LAST_NAME = null };
+  if(BLOOD == undefined){ BLOOD = null };
+  if(dpFromDate == undefined){ dpFromDate = null };
+  if(dpToDate == undefined){ dpToDate = null };
+
   return  this.httpClient.get<Usermodule>(
           this.baseUrl + '/getseacrh.php?'+ 
           'CITIZEN_ID=' + CITIZEN_ID
@@ -99,10 +108,10 @@ public getseacrh(CITIZEN_ID:string, SEX:string, TITLE:string, FIRST_NAME:string,
           + "&" +
           'BLOOD=' + BLOOD  
           +"&" +
-          'dpFromDate=' + dpFromDate  +"&"+ 
+          'dpFromDate=' + dpFromDate  
+          +"&"+ 
           'dpToDate=' + dpToDate
           );
-
 }
  
 //token
