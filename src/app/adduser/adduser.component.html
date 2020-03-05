@@ -9,16 +9,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >เลขบัตรประชาชน</label>
-                            <input type="text" (keypress)="numberOnly($event)" [(ngModel)]="userAdd.CITIZEN_ID" name="txtID" id="idcard" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [ngClass]="{ 'is-invalid': submitted && f.idcard.errors }"/>
-                            <div *ngIf=" validate_CITIZEN_ID">
-                                <div *ngIf=" validate_CITIZEN_ID == '0'"><h6>กรุณากรอกเลขบัตรประชาชน</h6></div>
-                                <div *ngIf=" validate_CITIZEN_IDMIN == '2'"><h6>กรุณากรอกให้ครบ 13 ตัว</h6></div>
-                                <div *ngIf=" validate_CITIZEN_IDMAX == '3'"><h6>เลขบัตรประชาชนเกิน 13 ตัว</h6></div>
-                                
-                                <!-- <div *ngIf="userAdd.CITIZEN_ID == undefined || userAdd.CITIZEN_ID == ''">กรุณากรอกเลขบัตรประชาชน</div> -->
-                                <!-- <div *ngIf=" validate_CITIZEN_IDMIN === '2'"><h6>กรุณากรอกให้ครบ 13 ตัว</h6></div>
-                                <div *ngIf=" validate_CITIZEN_IDMAX === '3'"><h6>เลขบัตรประชาชนเกิน 13 ตัว</h6></div> -->
-                            </div>
+                            <input  maxlength="13" type="text" (keypress)="numberOnly($event)" [(ngModel)]="userAdd.CITIZEN_ID" name="txtID" id="idcard" class="form-control input-sm" autocomplete="off" placeholder="เลขบัตรประชาชน" [ngClass]="{ 'is-invalid': submitted && f.idcard.errors }"/>
+                            <div *ngIf=" validate_CITIZEN_TEXT != '' "><h6>{{validate_CITIZEN_TEXT}}</h6></div>
                         </div>
                     </div>
                 </div>
@@ -27,14 +19,14 @@
                         <div class="form-group">
                             <label >คำนำหน้าชื่อ</label>
                             <ng-select [items]="TITLE" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="userAdd.TITLE"> </ng-select>
-                            <div *ngIf=" validate_TITLE == '0'"><h6>กรุณาเลือกคำนำหน้า</h6></div>
+                            <div *ngIf=" validate_TITLE == 'กรุณาเลือกคำนำหน้า' "><h6>{{validate_TITLE}}</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >เพศ</label>
                             <ng-select [items]="SEX" bindLabel="name" bindValue="id" placeholder="เลือก"  [(ngModel)]="userAdd.SEX"> </ng-select>
-                            <div *ngIf=" validate_SEX == '0'"><h6>กรุณาเลือกเพศ</h6></div>
+                            <div *ngIf="validate_SEX ==  'กรุณาเลือกเพศ' "><h6>{{validate_SEX}}</h6></div>
                         </div>
                     </div>
                 </div>
@@ -44,14 +36,14 @@
                         <div class="form-group">
                             <label  >ชื่อตัวไทย</label>
                             <input type="text" [(ngModel)]="userAdd.FIRST_NAME"  id="firstname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อตัวไทย" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"/>
-                                <div *ngIf="validate_FIRST_NAME == '0'"><h6>กรุณากรอกชื่อตัวไทย</h6></div>
+                            <div *ngIf="validate_FIRST_NAME ==  'กรุณากรอกชื่อตัวไทย' "><h6>{{validate_FIRST_NAME}}</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label  >ชื่อสกุลไทย</label>
                             <input type="text" [(ngModel)]="userAdd.LAST_NAME"  id="lastname" class="form-control input-sm" onkeyup="isThaichar(this.value,this)" autocomplete="off" placeholder="ชื่อสกุลไทย" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"/>
-                                <div *ngIf="validate_LAST_NAME == '0'"><h6>กรุณากรอกชื่อสกุลไทย</h6></div>
+                            <div *ngIf="validate_LAST_NAME ==  'กรุณากรอกชื่อสกุลไทย' "><h6>{{validate_LAST_NAME}}</h6></div>
                         </div>
                     </div>
                 </div>
@@ -60,8 +52,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label  >หมู่โลหิต</label>
-                                <ng-select [items]="BLOOD" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="userAdd.BLOOD"> </ng-select>
-                                <div *ngIf="validate_BLOOD == '0'"><h6>กรุณากรอกชื่อสกุลไทย</h6></div>
+                            <ng-select [items]="BLOOD" bindLabel="name" bindValue="id" placeholder="เลือก" [(ngModel)]="userAdd.BLOOD"> </ng-select>
+                            <div *ngIf="validate_BLOOD ==  'กรุณาเลือกหมู่โลหิต' "><h6>{{validate_BLOOD}}</h6></div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -74,12 +66,11 @@
                                     <mat-datepicker touchUi #picker></mat-datepicker>
                                 </div>
                             </div>
-                            <div *ngIf="validate_BIRTH_DATE == '0'"><h6>กรุณาเลือกวันเกิด</h6></div>
+                            <div *ngIf=" validate_BIRTH_DATE == 'กรุณาเลือกวันเกิด' "><h6>{{validate_BIRTH_DATE}}</h6></div>
                         </div>
                     </div>
                 </div>
                     <button type="button" (click)="postdata()" class="btn btn-primary float-md-right" value="ตรวจสอบ">บันทึก</button>
-                    <!-- <button type="submit" class="btn btn-primary" [disabled]="!angForm.valid">บันทึก</button> -->
         </div>
     </div>
     <div class="col-md-3">

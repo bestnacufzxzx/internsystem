@@ -62,7 +62,6 @@ export class EdithistoryuserComponent implements OnInit {
     return true;
   }
   chack_befor_validate(){
-    // this.Validators_CITIZEN_ID();
     this.Validators_TITLE();
     this.Validators_BLOOD();
     this.Validators_SEX();
