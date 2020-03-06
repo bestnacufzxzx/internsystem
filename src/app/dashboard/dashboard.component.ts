@@ -152,12 +152,31 @@ export class DashboardComponent implements OnDestroy, OnInit {
   }
 
   setdtOptions(){
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10
-    };
-  }
+    this.dtOptions.columnDefs = [
+    {targets: [ 8 ], searchable: !1, orderable: !1},
+    {targets: [ 9 ], searchable: !1, orderable: !1},
+    {targets: [ 1 ], searchable: !1, orderable: !1},
+    {targets: [], visible: false}
+];
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 10,
+    //   // serverSide: true,
+    //   // processing: true,
+    //   ordering: false,
+    //   searching: false
+    //   // columns: [
+    //   //   { data: 'CITIZEN_ID' },
+    //   //   { data: 'SEX' },
+    //   //   { data: 'TITLE' },
+    //   //   { data: 'FIRST_NAME' },
+    //   //   { data: 'LAST_NAME' },
+    //   //   { data: 'BLOOD' },
+    //   //   { data: 'BIRTH_DATE' }
+    //   // ]
 
+    // };
+  }
   clear(){
     this.search.CITIZEN_ID = null;
     this.search.FIRST_NAME = null;
@@ -171,6 +190,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
   btn_submit(){
     this.getSearchData()
   }
+                      
 
   async getseacrh(){
       this.CITIZEN_ID = this.search.CITIZEN_ID;

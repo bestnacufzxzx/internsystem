@@ -119,11 +119,11 @@
 
         <div class="row">
           <div class="col-md-12">
-            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table-active" id="myTable">
+            <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" datatable="ng" dt-column-defs="dtColumnDefs"  class="table table-striped table-bordered table-sm row-border hover display" id="myTable" >
               <thead>
                 <tr>
-                  <th scope="col" sortable="ID"> ลำดับ </th>
-                  <th scope="col" sortable="DELETE" (sort)="onSort($event)"> </th>
+                  <th scope="col" sortable="ID" onclick="sortTable(0)" > ลำดับ </th>
+                  <th scope="col" sortable="DELETE" (sort)="onSort($event)"> เลือกลบ </th>
                   <th scope="col" sortable="CITIZEN_ID" (sort)="onSort($event)"> เลขที่บัตรประชาชน <i
                       class="fa fa-fw fa-sort"></i> </th>
                   <th scope="col" sortable="TITLE" (sort)="onSort($event)"> คำนำหน้า <i class="fa fa-fw fa-sort"></i>
@@ -135,12 +135,13 @@
                   <th scope="col" sortable="SEX" (sort)="onSort($event)"> เพศ <i class="fa fa-fw fa-sort"></i> </th>
                   <th scope="col" sortable="BLOOD" (sort)="onSort($event)"> หมู่โลหิต <i class="fa fa-fw fa-sort"></i>
                   </th>
-                  <th scope="col" sortable="BIRTH_DATE" (sort)="onSort($event)"> วันเกิด <i
+                  <th scope="col" sortable="BIRTH_DATE"  (sort)="onSort($event)" onclick="sortTable(8)"  [class.active]="sortBy === 'name'"> วันเกิด <i
                       class="fa fa-fw fa-sort"></i> </th>
                   <th scope="col"> รายละเอียด </th>
                 </tr>
               </thead>
               <tbody>
+                <!-- r in StoreReports|orderBy:sortRcolumn:reverseRsort -->
                 <tr *ngFor="let user of userdet | filter:user; let i = index">
                   <td>
                      {{i+1}} 
