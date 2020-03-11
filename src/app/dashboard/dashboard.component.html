@@ -125,14 +125,13 @@
                 <tr>
                   <th scope="col" sortable="ID" onclick="sortTable(0)" > ลำดับ </th>
                   <th scope="col" sortable="DELETE" (sort)="onSort($event)"> เลือกลบ </th>
-                  <th scope="col" sortable="CITIZEN_ID" (sort)="onSort($event)"> เลขที่บัตรประชาชน <i class="fa fa-fw fa-sort"></i> </th>
-                  <th scope="col" sortable="TITLE" (sort)="onSort($event)"> คำนำหน้า <i class="fa fa-fw fa-sort"></i> </th>
-                  <th scope="col" sortable="FIRST_NAME" (sort)="onSort($event)"> ชื่อตัวไทย <i class="fa fa-fw fa-sort"></i> </th>
-                  <th scope="col" sortable="LAST_NAME" (sort)="onSort($event)"> ชื่อสกุลไทย <i class="fa fa-fw fa-sort"></i> </th>
-                  <th scope="col" sortable="SEX" (sort)="onSort($event)"> เพศ <i class="fa fa-fw fa-sort"></i> </th>
-                  <th scope="col" sortable="BLOOD" (sort)="onSort($event)"> หมู่โลหิต <i class="fa fa-fw fa-sort"></i>
-                  </th>
-                  <th  dataField="Task_Start_Date" caption="Start Date" dataType="date" class="font-size-header-table" style="vertical-align: middle !important;" mat-sort-header="createdate" onclick="sortTable(8)" > วันเกิด <i class="fa fa-fw fa-sort"></i> </th>
+                  <th scope="col" sortable="CITIZEN_ID" (sort)="onSort($event)"> เลขที่บัตรประชาชน  </th>
+                  <th scope="col" sortable="TITLE" (sort)="onSort($event)"> คำนำหน้า  </th>
+                  <th scope="col" sortable="FIRST_NAME" (sort)="onSort($event)"> ชื่อตัวไทย  </th>
+                  <th scope="col" sortable="LAST_NAME" (sort)="onSort($event)"> ชื่อสกุลไทย  </th>
+                  <th scope="col" sortable="SEX" (sort)="onSort($event)"> เพศ  </th>
+                  <th scope="col" sortable="BLOOD" (sort)="onSort($event)"> หมู่โลหิต </th>
+                  <th scope="col" sortable="BIRTH_DATE" (sort)="onSort($event)" onclick="sortTable(8)" > วันเกิด <i class="fa fa-fw fa-sort"></i>  </th>
                   <th scope="col"> รายละเอียด </th>
                 </tr>
               </thead>
