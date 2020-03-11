@@ -214,10 +214,69 @@ export class DashboardComponent implements OnDestroy, OnInit {
       await  this.dataService.getseacrh(this.CITIZEN_ID, this.SEX, this.TITLE, this.FIRST_NAME, this.LAST_NAME, this.BLOOD, this.dpFromDate, this.dpToDate)
       .subscribe( data => {
       this.userdet = data;
+      this.chack(this.userdet);
+      this.chack_Date(this.userdet);
       this.dtTrigger.next(this.clear);
-      // console.log('test search :',this.userdet);
-      // console.log('test dtTrigger :',this.dtTrigger.next());
+    });
+  }
 
+  chack(data){
+    let i = 1;
+    let ar = [];
+    data.forEach(element => {
+      ar[i] = element.BIRTH_DATE
+      i += 1
+    });
+    console.log(ar)
+    return this.date(ar)
+  }
+
+  date(data){
+    const nums = data;
+    function compare(a, b) {
+      if (a > b) return 1;
+      if (b > a) return -1;
+      return 0;
+    }
+    nums.sort(compare);
+    nums.forEach(element => {
+      console.log(element);
+    });
+    console.log("-------------------------------------------------");
+  }
+
+  chack_Date(dpFromDate){
+    let i = 1;
+    let toto = []
+    dpFromDate.forEach(element => {
+      let date = element.BIRTH_DATE;
+      let date2 ;
+      var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+      if (month.length < 2) 
+        month = '0' + month;
+      if (day.length < 2) 
+        day = '0' + day;
+      if(month <= '10'){}
+      date2 =  year + "-" + month + "-" + day;
+      toto[i] = date2
+      i += 1
+    });
+      return this.date_date(toto);
+  }
+
+  date_date(data){
+    const nums = data;
+    function compare(a, b) {
+      if (a > b) return 1;
+      if (b > a) return -1;
+      return 0;
+    }
+    nums.sort(compare);
+    nums.forEach(element => {
+      console.log(element);
     });
   }
   

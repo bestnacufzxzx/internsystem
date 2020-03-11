@@ -100,42 +100,57 @@
 // } );
 
 
-// function sortTable(n) {
-//   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-//   table = document.getElementById("myTable");
-//   switching = true;
-//   dir = "asc";
-//   while (switching) {
-//     switching = false;
-//     rows = table.getElementsByTagName("TR");
-//     for (i = 1; i < (rows.length - 1); i++) {
-//       shouldSwitch = false;
-//       x = rows[i].getElementsByTagName("TD")[n];
-//       y = rows[i + 1].getElementsByTagName("TD")[n];
-//       if (dir == "asc") {
-//         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-//           shouldSwitch= true;
-//           break;
-//         }
-//       } else if (dir == "desc") {
-//         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-//           shouldSwitch= true;
-//           break;
-//         }
-//       }
-//     }
-//     if (shouldSwitch) {
-//       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-//       switching = true;
-//       switchcount ++;
-//     } else {
-//       if (switchcount == 0 && dir == "asc") {
-//         dir = "desc";
-//         switching = true;
-//       }
-//     }
-//   }
-// }
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      
+      var date_x = x.innerHTML;
+      var datearray_x = date_x.split("/");
+      var new_date_x = datearray_x[1] + '/' + datearray_x[0] + '/' + datearray_x[2];
+      
+      var date_y = y.innerHTML;
+      var datearray_x = date_y.split("/");
+      var new_date_y = datearray_x[1] + '/' + datearray_x[0] + '/' + datearray_x[2];
+
+      var newdate_x = new Date(new_date_x)
+      var newdate_y = new Date(new_date_y)
+
+      var qx = newdate_x.getTime();
+      var jy = newdate_y.getTime();
+
+      if (dir == "asc") {
+        if (qx > jy) {
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (qx < jy) {
+          shouldSwitch= true;
+          break;
+        }
+      }   
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
   </script>  
 
 </body>
